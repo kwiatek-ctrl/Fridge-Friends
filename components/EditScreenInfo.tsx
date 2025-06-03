@@ -1,4 +1,5 @@
 import { Pressable, Text, TextInput, View, Alert, Image } from 'react-native';
+import {Link} from 'react-router-native'
 import { ScreenContent } from './ScreenContent';
 
 export const EditScreenInfo = ({ path }: { path: string }) => {
@@ -10,7 +11,7 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
   return (
     <View>
       <Image className={styles.logo} source={require('../assets/logo.png')} />
-      {/* <Image className={styles.logoImg} source={require('../assets/logo.png')} /> */}
+
       <View className={styles.getStartedContainer}>
         <Text className={styles.getStartedText}>{txt}</Text>
         <TextInput className={styles.inputArea} placeholder="Email address"></TextInput>
@@ -19,12 +20,15 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
           className={styles.inputArea}
           placeholder="*******"
           secureTextEntry={true}></TextInput>
-          <View className={styles.signInContainer}>
-        <Pressable
+        <View className={styles.signInContainer}>
+          <Link to="/home" className={styles.buttonLogIn}>
+            <Text className={styles.logIn}>{logIn}</Text>
+          </Link>
+          {/* <Pressable
           className={styles.buttonLogIn}
           onPress={() => Alert.alert('Successfully logged in!')}>
           <Text className={styles.logIn}>{logIn}</Text>
-        </Pressable>
+        </Pressable> */}
         </View>
       </View>
       <View className={styles.helpContainer}>
@@ -35,7 +39,11 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
         </Pressable>
       </View>
       <View>
-        <Pressable onPress={() => {}}><Text className={styles.formFooter}>Don't have an account?<Text className={styles.footerSignUp}> Sign up</Text></Text></Pressable>
+        <Pressable onPress={() => {}}>
+          <Text className={styles.formFooter}>
+            Don't have an account?<Text className={styles.footerSignUp}> Sign up</Text>
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
