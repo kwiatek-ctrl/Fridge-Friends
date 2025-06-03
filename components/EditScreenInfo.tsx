@@ -55,5 +55,5 @@ const styles = {
   footerSignUp: 'underline text-lg',
   formFooter: 'text-center p-4 text-gray-600',
   signInContainer: 'items-center ',
-  logo: 'object-scale-down h-20 w-20 mx-auto mb-4',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-4',
 };
