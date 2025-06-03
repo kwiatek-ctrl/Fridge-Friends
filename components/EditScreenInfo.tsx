@@ -1,4 +1,4 @@
-import { Pressable, Text, TextInput, View, Alert } from 'react-native';
+import { Pressable, Text, TextInput, View, Alert, Image } from 'react-native';
 
 export const EditScreenInfo = ({ path }: { path: string }) => {
   const txt = 'Email';
@@ -8,6 +8,7 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
 
   return (
     <View>
+      {/* <Image className={styles.logoImg} source={require('../assets/logo.png')} /> */}
       <View className={styles.getStartedContainer}>
         <Text className={styles.getStartedText}>{txt}</Text>
         <TextInput className={styles.inputArea} placeholder="Email address"></TextInput>
@@ -51,5 +52,6 @@ const styles = {
   signIn: 'text-center text-white',
   footerSignUp: 'underline text-lg',
   formFooter: 'text-center p-4 text-gray-600',
-  signInContainer: 'items-center '
+  signInContainer: 'items-center ',
+  logoImg:'flex items-center '
 };
