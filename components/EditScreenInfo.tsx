@@ -4,7 +4,7 @@ import { ScreenContent } from './ScreenContent';
 export const EditScreenInfo = ({ path }: { path: string }) => {
   const txt = 'Email';
   const pass = 'Password';
-  const signIn = 'Sign In';
+  const logIn = 'Log In';
   const forgotPass = 'Forgot Password?';
 
   return (
@@ -21,9 +21,9 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
           secureTextEntry={true}></TextInput>
           <View className={styles.signInContainer}>
         <Pressable
-          className={styles.buttonSignIn}
+          className={styles.buttonLogIn}
           onPress={() => Alert.alert('Successfully logged in!')}>
-          <Text className={styles.signIn}>{signIn}</Text>
+          <Text className={styles.logIn}>{logIn}</Text>
         </Pressable>
         </View>
       </View>
@@ -50,8 +50,8 @@ const styles = {
   helpLinkText: `text-center`,
   homeScreenFilename: `my-2`,
   inputArea: 'border border-black-600 rounded-md p-1 w-80 h-10',
-  buttonSignIn: 'justify-items-center bg-sky-500 rounded-2xl p-2 mt-3 w-60',
-  signIn: 'text-center text-white',
+  buttonLogIn: 'justify-items-center bg-sky-500 rounded-2xl p-2 mt-3 w-60',
+  logIn: 'text-center text-white',
   footerSignUp: 'underline text-lg',
   formFooter: 'text-center p-4 text-gray-600',
   signInContainer: 'items-center ',
