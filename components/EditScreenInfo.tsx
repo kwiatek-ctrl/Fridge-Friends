@@ -1,4 +1,5 @@
 import { Pressable, Text, TextInput, View, Alert, Image } from 'react-native';
+import { ScreenContent } from './ScreenContent';
 
 export const EditScreenInfo = ({ path }: { path: string }) => {
   const txt = 'Email';
@@ -8,6 +9,7 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
 
   return (
     <View>
+      <Image className={styles.logo} source={require('../assets/logo.png')} />
       {/* <Image className={styles.logoImg} source={require('../assets/logo.png')} /> */}
       <View className={styles.getStartedContainer}>
         <Text className={styles.getStartedText}>{txt}</Text>
@@ -33,7 +35,7 @@ export const EditScreenInfo = ({ path }: { path: string }) => {
         </Pressable>
       </View>
       <View>
-        <Pressable onPress={() => {}}><Text className={styles.formFooter}>Don`t have an account?<Text className={styles.footerSignUp}> Sign up</Text></Text></Pressable>
+        <Pressable onPress={() => {}}><Text className={styles.formFooter}>Don't have an account?<Text className={styles.footerSignUp}> Sign up</Text></Text></Pressable>
       </View>
     </View>
   );
@@ -53,5 +55,5 @@ const styles = {
   footerSignUp: 'underline text-lg',
   formFooter: 'text-center p-4 text-gray-600',
   signInContainer: 'items-center ',
-  logoImg:'flex items-center '
+  logo: 'object-scale-down h-20 w-20 mx-auto mb-4',
 };
