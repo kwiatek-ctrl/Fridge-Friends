@@ -1,7 +1,7 @@
 import { Pressable, Text, TextInput, View, Alert, Image } from 'react-native';
 
 import { ScreenContent } from './ScreenContent';
-//  just testing if its working 
+
 
 export const EditScreenInfo = ({ path, navigation }: { path: string, navigation: any }) => {
   const txt = 'Email';
@@ -39,7 +39,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
         </Pressable>
       </View>
       <View>
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={() => navigation.navigate('CreateAccount')}>
           <Text className={styles.formFooter}>
             Don't have an account?
             <Text className={styles.footerSignUp}> Sign up</Text>

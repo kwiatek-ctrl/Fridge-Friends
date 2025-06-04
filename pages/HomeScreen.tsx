@@ -7,7 +7,7 @@ export function HomeScreen({ navigation }) {
       {/* Fridge shelves background */}
       <Image
         source={require('../assets/fridge-shelves.png')}
-        className="absolute left-0 top-0 w-full h-full"
+        className="absolute  top-0 left-0  w-full h-full"
         style={{ zIndex: -1, opacity: 0.13 }}
         resizeMode="cover"
       />
