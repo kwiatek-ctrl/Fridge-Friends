@@ -1,23 +1,20 @@
-import { ScreenContent } from 'components/ScreenContent';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-
+import { HomeScreen } from './components/HomeScreen';
+import LoginScreen from './components/LoginScreen'; 
 import './global.css';
-import { Route, NativeRouter, Routes } from 'react-router-native';
-import Home from 'components/Home';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <>
-      <NativeRouter>
-        <StatusBar style="auto" />
-        <Routes>
-          <Route
-            path="/"
-            element={<ScreenContent title="Sign in to Fridge Friends" path="App.tsx" />}
-          />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </NativeRouter>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
