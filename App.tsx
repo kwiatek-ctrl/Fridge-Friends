@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { HomeScreen } from './components/HomeScreen';
-import LoginScreen from './components/LoginScreen'; 
+import { HomeScreen } from './pages/HomeScreen';
+import LoginScreen from './pages/LoginScreen'; 
 import './global.css';
 
 const Stack = createNativeStackNavigator();
