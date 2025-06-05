@@ -17,7 +17,7 @@ export function HomeScreen({ navigation }) {
         <View className="items-center w-full pt-12 pb-28">
           <ShelfButton label="ADD ITEM" />
           <ShelfButton label="MY FOOD" />
-          <ShelfButton label="FIND RECIPES" />
+          <ShelfButton label="FIND RECIPES" onPress={() => navigation.navigate('RecipeFilter')} />
           <ShelfButton label="FIND FOOD" />
         </View>
       </View>
