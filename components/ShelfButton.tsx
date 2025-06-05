@@ -1,4 +1,3 @@
-
 import { View, Image, Pressable, Text } from 'react-native';
 
 export function ShelfButton({ label, onPress }: { label: string; onPress?: () => void }) {
@@ -6,11 +5,12 @@ export function ShelfButton({ label, onPress }: { label: string; onPress?: () =>
     <View
       className="items-center w-full my-8"
       style={{
-        height: 85, 
+        height: 85,
         justifyContent: 'center',
         position: 'relative',
       }}
     >
+      {/* Shelf background image */}
       <Image
         source={require('../assets/shelf.png')}
         style={{
@@ -19,16 +19,20 @@ export function ShelfButton({ label, onPress }: { label: string; onPress?: () =>
           height: '100%',
           left: 0,
           top: 0,
-          resizeMode: 'stretch', 
+          resizeMode: 'stretch',
+          zIndex: 0, 
         }}
       />
+
+      {/* Green button */}
       <Pressable
+        onPress={onPress}
         className="bg-lime-700 rounded-full px-10 py-4 shadow-lg"
         style={{
           minWidth: 400,
           alignSelf: 'center',
+          zIndex: 1, 
         }}
-        onPress={onPress}
       >
         <Text className="text-white text-xl font-bold text-center">{label}</Text>
       </Pressable>
