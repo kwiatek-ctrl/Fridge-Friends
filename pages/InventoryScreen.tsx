@@ -2,9 +2,18 @@ import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from 'react';
 import { fetchUserPantry } from 'fetchData.js'; 
 
+type PantryItem = {
+  _id: string;
+  name: string;
+  quantity: number;
+  unit: string;
+  location: string;
+  category?: string;
+  expiryDate: string;
+};
 
 export default function InventoryScreen() {
-  const [pantryItems, setPantryItems] = useState([]);
+  const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
