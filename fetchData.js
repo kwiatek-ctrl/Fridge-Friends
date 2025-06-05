@@ -55,6 +55,8 @@ export function addUser(user) {
       dietaryRequirements: user.dietaryRequirements,
     })
     .then((response) => {
+     
+      
       return response.data;
     })
     .catch((err) => {
