@@ -62,11 +62,12 @@ export default function CreateAccount() {
     addUser(user)
       .then((newUser) => {
         alert('Account created successfully!');
-        setLoggedInUser(newUser);
-        console.log(newUser);
+        setLoggedInUser(newUser)
+        console.log(newUser)
+        navigation.navigate('User')
         setErrors({});
-        navigation.navigate('User');
-      })
+        })
+
       .catch((err) => {
         setErrors({ general: 'Something went wrong. Please try again later.' });
         console.log(err);
