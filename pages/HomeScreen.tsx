@@ -1,20 +1,29 @@
 import { View, Image, SafeAreaView, Pressable } from 'react-native';
-import { ShelfButton } from 'components/ShelfButton'; 
+import { ShelfButton } from 'components/ShelfButton';
 
 export function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView className="flex-1 bg-white relative">
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white', position: 'relative' }}>
       {/* Fridge shelves background */}
       <Image
         source={require('../assets/fridge-shelves.png')}
-        className="absolute  top-0 left-0  w-full h-full"
-        style={{ zIndex: -1, opacity: 0.13 }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -2,
+          opacity: 0.25,
+        }}
         resizeMode="cover"
       />
 
       {/* Main content */}
-      <View className="flex-1 w-full justify-center">
-        <View className="items-center w-full pt-12 pb-28">
+      <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
+        <View style={{ alignItems: 'center', width: '100%', paddingTop: 48, paddingBottom: 112 }}>
           <ShelfButton label="ADD ITEM" />
           <ShelfButton label="MY FOOD" />
           <ShelfButton label="FIND RECIPES" onPress={() => navigation.navigate('RecipeFilter')} />
@@ -23,12 +32,26 @@ export function HomeScreen({ navigation }) {
       </View>
 
       {/* Bottom nav */}
-      <View className="
-        absolute left-0 right-0 bottom-0
-        flex-row justify-between items-center
-        w-full
-        px-[100px] pb-[34px] z-10
-      ">
+      <View
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          paddingHorizontal: 100,
+          paddingBottom: 34,
+          zIndex: 10,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.2,
+          shadowRadius: 4,
+         elevation: 5,
+        }}
+      >
         <Image
           source={require('../assets/inbox-icon.png')}
           style={{ width: 56, height: 56 }}
