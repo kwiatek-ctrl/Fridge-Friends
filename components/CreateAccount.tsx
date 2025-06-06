@@ -51,8 +51,7 @@ export default function CreateAccount() {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-
+    const handleSubmit = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -63,11 +62,10 @@ export default function CreateAccount() {
     addUser(user)
       .then((newUser) => {
         alert('Account created successfully!');
-        setLoggedInUser(newUser)
-        console.log(newUser)
-        navigation.navigate('User')
-        });
+        setLoggedInUser(newUser);
+        console.log(newUser);
         setErrors({});
+        navigation.navigate('User');
       })
       .catch((err) => {
         setErrors({ general: 'Something went wrong. Please try again later.' });
@@ -75,6 +73,7 @@ export default function CreateAccount() {
       })
       .finally(() => setLoading(false));
   };
+
 
   return (
     <View className={styles.container}>
