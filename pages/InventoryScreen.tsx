@@ -1,6 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from 'react';
 import { fetchUserPantry } from 'fetchData.js'; 
+import PantryItem from '../components/PantryItem';
 
 type PantryItem = {
   _id: string;
@@ -39,14 +40,9 @@ export default function InventoryScreen() {
       <FlatList
         data={pantryItems}
         keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
-          <View className="mb-4 p-4 border border-gray-300 rounded">
-            <Text className="text-lg font-semibold">{item.name}</Text>
-            <Text>Qty: {item.quantity} {item.unit}</Text>
-            <Text>Location: {item.location}</Text>
-            <Text>Expires: {new Date(item.expiryDate).toDateString()}</Text>
-          </View>
-        )}
+        contentContainerStyle={{ paddingBottom: 200 }}
+        renderItem={({ item }) => <PantryItem item={item} />}
+        scrollEnabled={true}
       />
     </View>
   );
