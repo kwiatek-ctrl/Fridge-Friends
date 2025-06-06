@@ -1,9 +1,80 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable, ScrollView } from 'react-native';
+import { useState } from 'react';
+import BackButton from '../components/BackButton';
+import recipesData from '../practice-recipes';
 
 export default function RecipeResultScreen() {
+  const [unitSystem, setUnitSystem] = useState<'metric' | 'imperial'>('metric');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const recipes = recipesData.recipes;
+  const current = recipes[currentIndex];
+
+  const toggleUnit = () => {
+    setUnitSystem((prev) => (prev === 'metric' ? 'imperial' : 'metric'));
+  };
+
   return (
-    <View className="flex-1 justify-center items-center bg-white">
-      <Text className="text-xl">Recipe Result Page</Text>
+    <View className="flex-1 bg-white">
+      <BackButton />
+
+      <ScrollView className="flex-1 px-6 pt-20">
+        {/* Header */}
+        <Text className="text-2xl font-bold mb-6 mt-4">Recipe Result</Text>
+
+        {/* Difficulty Selector */}
+        <View className="flex-row justify-between mb-4">
+          {['Easy', 'Medium', 'Hard'].map((label, index) => (
+            <Pressable
+              key={label}
+              onPress={() => setCurrentIndex(index)}
+              className={`px-4 py-2 rounded-full ${
+                currentIndex === index ? 'bg-purple-600' : 'bg-gray-300'
+              }`}
+            >
+              <Text className="text-white font-bold">{label}</Text>
+            </Pressable>
+          ))}
+        </View>
+
+        {/* Title */}
+        <Text className="text-xl font-bold mb-4">{current.title}</Text>
+
+        {/* Ingredients header and toggle */}
+        <View className="flex-row justify-between items-center mb-2">
+          <Text className="text-xl font-semibold">Ingredients</Text>
+          <Pressable
+            onPress={toggleUnit}
+            className="border border-purple-600 px-3 py-1 rounded"
+          >
+            <Text className="text-purple-600 font-semibold text-sm">
+              Switch to {unitSystem === 'metric' ? 'Imperial' : 'Metric'}
+            </Text>
+          </Pressable>
+        </View>
+
+        {/* Ingredient List */}
+        <View className="mb-6">
+          {current.ingredients.map((item, i) => {
+            const qty = item.quantity?.[unitSystem];
+            return (
+              <Text key={i} className="text-base mb-1">
+                {qty ? `${qty.amount} ${qty.unit} ` : ''}{item.name}
+              </Text>
+            );
+          })}
+        </View>
+
+        {/* Method */}
+        <Text className="text-xl font-semibold mb-2">Method</Text>
+        <View className="mb-10">
+          {current.method.map((step, i) => (
+            <Text key={i} className="text-base mb-2">
+              {i + 1}. {step}
+            </Text>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 }
