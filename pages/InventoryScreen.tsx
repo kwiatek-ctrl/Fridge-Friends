@@ -17,6 +17,14 @@ export default function InventoryScreen() {
   const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleItemUpdate = (updatedItem: PantryItem) => {
+    setPantryItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === updatedItem._id ? updatedItem : item
+      )
+    );
+  };
+
   useEffect(() => {
     const username = 'tinned-tomato'; 
 
@@ -38,12 +46,16 @@ export default function InventoryScreen() {
   return (
     <View className="flex-1 bg-white p-4">
       <FlatList
-        data={pantryItems}
-        keyExtractor={(item) => item._id}
-        contentContainerStyle={{ paddingBottom: 200 }}
-        renderItem={({ item }) => <PantryItem item={item} />}
-        scrollEnabled={true}
-      />
+  data={pantryItems}
+  keyExtractor={(item) => item._id}
+  renderItem={({ item }) => (
+    <PantryItem
+      item={item}
+      username="tinned-tomato"
+      onOptimisticUpdate={handleItemUpdate}
+    />
+  )}
+/>
     </View>
   );
 }

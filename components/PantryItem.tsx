@@ -1,20 +1,15 @@
 import { View, Text, Pressable } from 'react-native';
 import { useState } from 'react';
 import UpdateItem from './UpdateItem';
+import { PantryItemType } from '../types';
 
 type PantryItemProps = {
-    item: {
-      _id: string;
-      name: string;
-      quantity: number;
-      unit: string;
-      location: string;
-      category?: string;
-      expiryDate: string;
-    };
-  };
+  item: PantryItemType;
+  username: string;
+  onOptimisticUpdate?: (updatedItem: PantryItemType) => void; 
+};
 
-  export default function PantryItem({ item }: PantryItemProps) {
+  export default function PantryItem({ item, onOptimisticUpdate }: PantryItemProps) {
     const [expanded, setExpanded] = useState(false);
   
     return (
@@ -25,7 +20,7 @@ type PantryItemProps = {
           <Text>Location: {item.location}</Text>
           <Text>Expires: {new Date(item.expiryDate).toDateString()}</Text>
   
-          {expanded && <UpdateItem username="tinned-tomato" item={item} />}
+          {expanded && <UpdateItem username="tinned-tomato" item={item} onOptimisticUpdate={onOptimisticUpdate}/>}
         </View>
       </Pressable>
     );

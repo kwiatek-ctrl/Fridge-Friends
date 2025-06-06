@@ -5,19 +5,27 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 type UpdateItemProps = {
-  username: string;
-  item: {
-    _id: string;
-    name: string;
-    quantity: number;
-    unit: string;
-    location: string;
-    expiryDate: string;
+    username: string;
+    item: {
+      _id: string;
+      name: string;
+      quantity: number;
+      unit: string;
+      location: string;
+      expiryDate: string;
+    };
+    onOptimisticUpdate: (updatedItem: {
+      _id: string;
+      name: string;
+      quantity: number;
+      unit: string;
+      location: string;
+      expiryDate: string;
+    }) => void;
   };
-};
 
 
-export default function UpdateItem({ username, item }: UpdateItemProps) {
+export default function UpdateItem({ username, item, onOptimisticUpdate }: UpdateItemProps) {
   const [quantity, setQuantity] = useState(String(item.quantity));
   const [unit, setUnit] = useState(item.unit);
   const [loading, setLoading] = useState(false);
@@ -32,6 +40,18 @@ const [items, setItems] = useState([
 
   const handleUpdate = () => {
     setLoading(true);
+
+    const updatedItem = {
+        ...item,
+        quantity: Number(quantity),
+        unit,
+        location,
+      };
+
+      if (onOptimisticUpdate) {
+        onOptimisticUpdate(updatedItem);
+      }
+
     patchItemInPantry(username, item._id, {
       ...item,
       quantity: Number(quantity),
