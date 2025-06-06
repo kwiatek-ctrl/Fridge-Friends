@@ -61,12 +61,11 @@ export function addUser(user) {
       name: user.name,
       emailAddress: user.emailAddress,
       profilePicURL: user.profilePicURL,
-      householdID: user.householdID,
+      householdID: user.householdID ? user.householdID : null,
       allergies: user.allergies,
       dietaryRequirements: user.dietaryRequirements,
     })
     .then((response) => {
-     
       
       return response.data;
     })

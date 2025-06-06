@@ -1,101 +1,85 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { addUser } from 'fetchData';
 import BackButton from './BackButton';
+import { UserContext } from 'contexts/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LogUserIn from './LogUserIn';
 
-
-
-
-export default function CreateAccount({onUserAdded}) {
+export default function CreateAccount() {
   const [user, setUser] = useState({
     username: '',
     name: '',
     emailAddress: '',
+    profilePicURL: '',
     householdID: '',
     allergies: '',
     dietaryRequirements: '',
-    
   });
+  const [loggedInUser, setLoggedInUser] = useState({})
+  const navigation = useNavigation<any>()
 
   const handleChange = (field, value) => {
     setUser({ ...user, [field]: value });
   };
   const handleSubmit = () => {
-    
-  
-    
     addUser(user)
-    
-    .then((newUser)=>{
-      console.log(newUser, "<----- new ");
-      
-        alert('Account has been successfully created !');
-        if(onUserAdded){
-          onUserAdded(newUser)
-        }
-        setUser({
-          username: "",
-          name: "",
-          emailAddress: "",
-         
-          householdID: "",
-          allergies: "",
-          dietaryRequirements: "",
-        })
-       
-        })
-         .catch((err)=>{
-          alert("Something went wrong while adding the user.")
-          console.log(err)
-    })
-
-    alert('Account created successfully!');
- };
-  
+      .then((newUser) => {
+        alert('Account created successfully!');
+        setLoggedInUser(newUser)
+        console.log(newUser)
+        navigation.navigate('User')
+      })
+      .catch((err) => {
+        alert('Something went wrong while adding the user.');
+        console.log(err);
+      });
+  };
 
   return (
     <>
       <View className={styles.container}>
-          <BackButton />
-           <ScrollView className="flex-1 px-6 pt-20">
-        <Image className={styles.logo} source={require('../assets/logo.png')} />
-        <Text className={styles.title}>Create Account</Text>
+        <BackButton />
+        <ScrollView className="flex-1 px-6 pt-20">
+          <Image className={styles.logo} source={require('../assets/logo.png')} />
+          <Text className={styles.title}>Create Account</Text>
 
-        <Text className={styles.label}>User name</Text>
-        <TextInput
-          value={user.username}
-          onChangeText={(text) => handleChange('username', text)}
-          className={styles.input}
-        />
-        <Text className={styles.label}>Name</Text>
-        <TextInput
-          value={user.name}
-          onChangeText={(text) => handleChange('name', text)}
-          className={styles.input}
-        />
-        <Text className={styles.label}>Email Adress</Text>
-        <TextInput
-          value={user.emailAddress}
-          onChangeText={(text) => handleChange('emailAddress', text)}
-          className={styles.input}
-          keyboardType="email-address"
-        />
-        <Text className={styles.label}>Dietary Requirements (optional)</Text>
-        <TextInput
-          value={user.dietaryRequirements}
-          onChangeText={(text) => handleChange('dietaryRequirements', text)}
-          className={styles.input}
-        />
-        <Text className={styles.label}>Allergies (optional)</Text>
-        <TextInput
-          value={user.allergies}
-          onChangeText={(text) => handleChange('allergies', text)}
-          className={styles.input}
-        />
+          <Text className={styles.label}>Username</Text>
+          <TextInput
+            value={user.username}
+            onChangeText={(text) => handleChange('username', text)}
+            className={styles.input}
+          />
+          <Text className={styles.label}>Name</Text>
+          <TextInput
+            value={user.name}
+            onChangeText={(text) => handleChange('name', text)}
+            className={styles.input}
+          />
+          <Text className={styles.label}>Email Adress</Text>
+          <TextInput
+            value={user.emailAddress}
+            onChangeText={(text) => handleChange('emailAddress', text)}
+            className={styles.input}
+            keyboardType="email-address"
+          />
+          <Text className={styles.label}>Dietary Requirements (optional)</Text>
+          <TextInput
+            value={user.dietaryRequirements}
+            onChangeText={(text) => handleChange('dietaryRequirements', text)}
+            className={styles.input}
+          />
+          <Text className={styles.label}>Allergies (optional)</Text>
+          <TextInput
+            value={user.allergies}
+            onChangeText={(text) => handleChange('allergies', text)}
+            className={styles.input}
+          />
 
-        <TouchableOpacity onPress={handleSubmit} className={styles.button}>
-          <Text className={styles.buttonText}>Create Account</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={handleSubmit} className={styles.button}>
+            <Text className={styles.buttonText}>Create Account</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </>
