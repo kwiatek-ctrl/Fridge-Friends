@@ -30,11 +30,22 @@ export function fetchUserByUsername(username) {
 export function fetchUserPantry(username, location, category) {
   return apiClient
     .get(`/users/${username}/pantry`, {
-        params: {
-            location: location,
-            category: category
-        }
+      params: {
+        location: location,
+        category: category,
+      },
     })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
+}
+
+export function fetchSingleItem(username, itemID) {
+  return apiClient
+    .get(`users/${username}/pantry/${itemID}`)
     .then((response) => {
       return response.data;
     })
@@ -50,11 +61,12 @@ export function addUser(user) {
       name: user.name,
       emailAddress: user.emailAddress,
       profilePicURL: user.profilePicURL,
-      householdID: user.householdID,
+      householdID: user.householdID ? user.householdID : null,
       allergies: user.allergies,
       dietaryRequirements: user.dietaryRequirements,
     })
     .then((response) => {
+      
       return response.data;
     })
     .catch((err) => {
@@ -104,5 +116,11 @@ export function patchUser(username, user) {
     emailAddress: user.emailAddress,
     allergies: user.allergies,
     dietaryRequirements: user.dietaryRequirements,
+  });
+}
+
+export function deleteItemFromPantry(username, itemID) {
+  return apiClient.delete(`users/${username}/pantry/${itemID}`).catch((err) => {
+    return Promise.reject(err);
   });
 }

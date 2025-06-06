@@ -1,6 +1,7 @@
-import { Pressable, Text, TextInput, View, Alert, Image } from 'react-native';
+import { Pressable, Text, TextInput, View, Alert, Image, ScrollView } from 'react-native';
 
 import { ScreenContent } from './ScreenContent';
+import BackButton from './BackButton';
 
 
 export const EditScreenInfo = ({ path, navigation }: { path: string, navigation: any }) => {
@@ -11,7 +12,9 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 
   return (
     <View>
-      <Image className={styles.logo} source={require('../assets/logo.png')} />
+       <BackButton />
+       <ScrollView className="flex-1 px-6 pt-20">
+      <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
       <View className={styles.getStartedContainer}>
         <Text className={styles.getStartedText}>{txt}</Text>
         <TextInput className={styles.inputArea} placeholder="Email address" />
@@ -46,6 +49,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
           </Text>
         </Pressable>
       </View>
+      </ScrollView>
     </View>
   );
 };
