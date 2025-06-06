@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { addUser } from 'fetchData';
 import BackButton from './BackButton';
+import { UserContext } from 'contexts/UserContext';
+import { useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LogUserIn from './LogUserIn';
 
-export default function CreateAccount({ onUserAdded }) {
+export default function CreateAccount() {
   const [user, setUser] = useState({
     username: '',
     name: '',
     emailAddress: '',
+    profilePicURL: '',
     householdID: '',
     allergies: '',
     dietaryRequirements: '',
   });
+  const [loggedInUser, setLoggedInUser] = useState({})
+  const navigation = useNavigation<any>()
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -45,6 +52,7 @@ export default function CreateAccount({ onUserAdded }) {
   };
 
   const handleSubmit = () => {
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -54,14 +62,10 @@ export default function CreateAccount({ onUserAdded }) {
     setLoading(true);
     addUser(user)
       .then((newUser) => {
-        if (onUserAdded) onUserAdded(newUser);
-        setUser({
-          username: '',
-          name: '',
-          emailAddress: '',
-          householdID: '',
-          allergies: '',
-          dietaryRequirements: '',
+        alert('Account created successfully!');
+        setLoggedInUser(newUser)
+        console.log(newUser)
+        navigation.navigate('User')
         });
         setErrors({});
       })
@@ -131,6 +135,7 @@ export default function CreateAccount({ onUserAdded }) {
         </TouchableOpacity>
       </ScrollView>
     </View>
+
   );
 }
 
