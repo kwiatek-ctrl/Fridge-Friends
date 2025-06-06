@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { addUser } from 'fetchData';
 import BackButton from './BackButton';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CreateAccount({onUserAdded}) {
   const [user, setUser] = useState({
@@ -12,6 +13,9 @@ export default function CreateAccount({onUserAdded}) {
     allergies: '',
     dietaryRequirements: '',
   });
+
+  const navigation = useNavigation<any>();
+  const [loggedInUser, setLoggedInUser] = useState({})
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
