@@ -24,7 +24,7 @@ export function HomeScreen({ navigation }) {
       {/* Main content */}
       <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
         <View style={{ alignItems: 'center', width: '100%', paddingTop: 48, paddingBottom: 112 }}>
-          <ShelfButton label="ADD ITEM" />
+         <ShelfButton label="ADD ITEM" onPress={() => navigation.navigate('AddItem')} />
           <ShelfButton label="MY FOOD" />
           <ShelfButton label="FIND RECIPES" onPress={() => navigation.navigate('RecipeFilter')} />
           <ShelfButton label="FIND FOOD" />
