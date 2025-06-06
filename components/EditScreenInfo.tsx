@@ -14,7 +14,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
     <View>
        <BackButton />
        <ScrollView className="flex-1 px-6 pt-20">
-      <Image className={styles.logo} source={require('../assets/logo.png')} />
+      <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
       <View className={styles.getStartedContainer}>
         <Text className={styles.getStartedText}>{txt}</Text>
         <TextInput className={styles.inputArea} placeholder="Email address" />

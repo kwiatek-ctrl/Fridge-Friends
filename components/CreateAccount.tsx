@@ -76,7 +76,7 @@ export default function CreateAccount({ onUserAdded }) {
     <View className={styles.container}>
       <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
-        <Image className={styles.logo} source={require('../assets/logo.png')} />
+        <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
         <Text className={styles.title}>Create Account</Text>
 
         <Text className={styles.label}>Username</Text>
