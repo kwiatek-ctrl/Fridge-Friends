@@ -51,8 +51,7 @@ export default function CreateAccount() {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-
+    const handleSubmit = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -68,12 +67,14 @@ export default function CreateAccount() {
         navigation.navigate('User')
         setErrors({});
         })
+
       .catch((err) => {
         setErrors({ general: 'Something went wrong. Please try again later.' });
         console.log(err);
       })
       .finally(() => setLoading(false));
   };
+
 
   return (
     <View className={styles.container}>
