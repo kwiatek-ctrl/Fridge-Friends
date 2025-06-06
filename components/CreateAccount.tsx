@@ -66,9 +66,8 @@ export default function CreateAccount() {
         setLoggedInUser(newUser)
         console.log(newUser)
         navigation.navigate('User')
-        });
         setErrors({});
-      })
+        })
       .catch((err) => {
         setErrors({ general: 'Something went wrong. Please try again later.' });
         console.log(err);
