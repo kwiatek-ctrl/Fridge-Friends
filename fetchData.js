@@ -5,6 +5,11 @@ const apiClient = axios.create({
   timeout: 10000,
 });
 
+const ai = axios.create({
+  baseURL: "https://fridge-friends-ai.onrender.com",
+  timeout: 60000,
+})
+
 export function fetchUsers() {
   return apiClient
     .get('/users')
@@ -123,4 +128,14 @@ export function deleteItemFromPantry(username, itemID) {
   return apiClient.delete(`users/${username}/pantry/${itemID}`).catch((err) => {
     return Promise.reject(err);
   });
+}
+
+export function getRecipies() {
+  return ai.post("/api/generate-recipies")
+  .then((response) => {
+    const parsedRecipies = JSON.parse(response)
+    return parsedRecipies
+  }).catch((err) => {
+    return Promise.reject(err)
+  })
 }
