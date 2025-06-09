@@ -135,7 +135,6 @@ export function deleteItemFromPantry(username, itemID) {
   });
 }
 
-<<<<<<< HEAD
 export function getRecipies(input) {
   return ai
     .post('/api/generate-recipies', {
@@ -151,14 +150,3 @@ export function getRecipies(input) {
       return Promise.reject(err);
     });
 }
-=======
-export function getRecipies() {
-  return ai.post("/api/generate-recipies")
-  .then((response) => {
-    const parsedRecipies = JSON.parse(response)
-    return parsedRecipies
-  }).catch((err) => {
-    return Promise.reject(err)
-  })
-}
->>>>>>> parent of 0f0fcec (updated getRecipies function)
