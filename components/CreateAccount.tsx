@@ -49,6 +49,7 @@ export default function CreateAccount({onUserAdded}) {
   };
 
 
+
     const handleSubmit = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -61,9 +62,12 @@ export default function CreateAccount({onUserAdded}) {
       .then((newUser) => {
 
       
+
+      
         setLoggedInUser(newUser)
         console.log(newUser)
         navigation.navigate('User')
+
 
         setErrors({});
         })
