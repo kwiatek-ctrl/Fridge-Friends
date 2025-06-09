@@ -130,8 +130,12 @@ export function deleteItemFromPantry(username, itemID) {
   });
 }
 
-export function getRecipies() {
-  return ai.post("/api/generate-recipies")
+export function getRecipies(input) {
+  return ai.post("/api/generate-recipies", {
+    ingredients: input.ingredients,
+    allergies: input.allergies.length > 0 ? input.allergies : null,
+    dietaryRequirements: input.dietaryRequirements.length > 0 ? input.dietaryRequirements : null,
+  })
   .then((response) => {
     const parsedRecipies = JSON.parse(response)
     return parsedRecipies
