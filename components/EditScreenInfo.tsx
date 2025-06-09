@@ -41,7 +41,9 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
       <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
-        <View className={styles.getStartedContainer}>
+
+        {/* Unified form container */}
+        <View className="w-80 mx-auto space-y-3">
           <Text className={styles.getStartedText}>{emailLabel}</Text>
           <TextInput
             className={styles.inputArea}
@@ -63,23 +65,20 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
           />
           {errors.password ? <Text className="text-red-500">{errors.password}</Text> : null}
 
-          <View className={styles.signInContainer}>
-            <Pressable className={styles.buttonLogIn} onPress={handleLogin}>
-              <Text className={styles.logIn}>{loginLabel}</Text>
-            </Pressable>
-          </View>
+          <Pressable className={styles.buttonLogIn} onPress={handleLogin}>
+            <Text className={styles.logIn}>{loginLabel}</Text>
+          </Pressable>
         </View>
 
+        {/* Forgot password */}
         <View className={styles.helpContainer}>
-          <Pressable
-            className={styles.helpLink}
-            onPress={() => console.log('Forgot Password Pressed')}
-          >
+          <Pressable onPress={() => console.log('Forgot Password Pressed')}>
             <Text className={styles.helpLinkText}>{forgotPassword}</Text>
           </Pressable>
         </View>
 
-        <View>
+        {/* Sign up link */}
+        <View className="items-center mt-4">
           <Pressable onPress={() => navigation.navigate('CreateAccount')}>
             <Text className={styles.formFooter}>
               Don't have an account?
@@ -93,18 +92,13 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 };
 
 const styles = {
-  codeHighlightContainer: `rounded-md px-1`,
-  getStartedContainer: `justify-items-normal mx-12`,
-  getStartedText: `text-lg leading-6 text-left pt-3`,
+  getStartedText: `text-lg leading-6 text-left`,
   helpContainer: `items-center mx-5 mt-4`,
-  helpLink: `py-4`,
-  helpLinkText: `text-center`,
-  homeScreenFilename: `my-2`,
-  inputArea: 'border border-black-600 rounded-md p-1 w-80 h-10',
-  buttonLogIn: 'justify-items-center bg-sky-500 rounded-2xl p-2 mt-3 w-60',
-  logIn: 'text-center text-white',
-  footerSignUp: 'underline text-lg',
-  formFooter: 'text-center p-4 text-gray-600',
-  signInContainer: 'items-center ',
-  logo: 'object-scale-down h-40 w-40 mx-auto mb-4',
+  helpLinkText: `text-center text-gray-600`,
+  inputArea: 'border border-gray-400 rounded-md p-2 w-full',
+  buttonLogIn: 'bg-purple-600 rounded-md py-3 w-full',
+  logIn: 'text-center text-white font-bold text-base',
+  footerSignUp: 'underline text-base text-purple-700',
+  formFooter: 'text-center p-4 text-gray-600 text-base',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-6',
 };

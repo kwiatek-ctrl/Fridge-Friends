@@ -6,7 +6,7 @@ import {
   Pressable,
   Platform,
   StyleSheet,
-  Button,
+  ScrollView,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -54,125 +54,131 @@ export default function AddItem() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Name</Text>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-      />
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.formWrapper}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+        />
 
-      <Text style={styles.label}>Quantity</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={quantity}
-        onChangeText={setQuantity}
-      />
+        <Text style={styles.label}>Quantity</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={quantity}
+          onChangeText={setQuantity}
+        />
 
-      <Text style={styles.label}>Unit</Text>
-      <Picker
-        selectedValue={unit}
-        onValueChange={setUnit}
-        style={styles.picker}
-      >
-        {units.map((u) => (
-          <Picker.Item key={u} label={u} value={u} />
-        ))}
-      </Picker>
+        <Text style={styles.label}>Unit</Text>
+        <Picker
+          selectedValue={unit}
+          onValueChange={setUnit}
+          style={styles.picker}
+        >
+          {units.map((u) => (
+            <Picker.Item key={u} label={u} value={u} />
+          ))}
+        </Picker>
 
-      <Text style={styles.label}>Category</Text>
-      <Picker
-        selectedValue={category}
-        onValueChange={setCategory}
-        style={styles.picker}
-      >
-        {categories.map((c) => (
-          <Picker.Item key={c} label={c} value={c} />
-        ))}
-      </Picker>
+        <Text style={styles.label}>Category</Text>
+        <Picker
+          selectedValue={category}
+          onValueChange={setCategory}
+          style={styles.picker}
+        >
+          {categories.map((c) => (
+            <Picker.Item key={c} label={c} value={c} />
+          ))}
+        </Picker>
 
-      <Text style={styles.label}>Location</Text>
-      <View style={styles.radioGroup}>
-        {locations.map((loc) => (
-          <Pressable
-            key={loc}
-            style={[
-              styles.radioButton,
-              location === loc && styles.radioSelected,
-            ]}
-            onPress={() => setLocation(loc)}
-          >
-            <Text style={location === loc ? styles.radioTextSelected : styles.radioText}>
-              {loc}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+        <Text style={styles.label}>Location</Text>
+        <View style={styles.radioGroup}>
+          {locations.map((loc) => (
+            <Pressable
+              key={loc}
+              style={[
+                styles.radioButton,
+                location === loc && styles.radioSelected,
+              ]}
+              onPress={() => setLocation(loc)}
+            >
+              <Text
+                style={
+                  location === loc
+                    ? styles.radioTextSelected
+                    : styles.radioText
+                }
+              >
+                {loc}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
 
-      <Text style={styles.label}>Expiry Date</Text>
-
-      <Pressable
-       style={styles.dateButton}
-       onPress={() => setShowDatePicker(true)}
-       >
-       <Text>{expiryDate.toDateString()}</Text>
+        <Text style={styles.label}>Expiry Date</Text>
+        <Pressable
+          style={styles.dateButton}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Text>{expiryDate.toDateString()}</Text>
         </Pressable>
-<DateTimePicker
-  value={expiryDate}
-  mode="date"
-  display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
-  onChange={(_, date) => {
-    setShowDatePicker(false);
-    if (date) setExpiryDate(date);
-  }}
-  minimumDate={new Date()}
-/>
 
-      {showDatePicker && (
-         <DateTimePicker
-         value={expiryDate}
-         mode="date"
-    display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+        {showDatePicker && (
+          <DateTimePicker
+            value={expiryDate}
+            mode="date"
+            display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
+            onChange={(_, date) => {
+              setShowDatePicker(false);
+              if (date) setExpiryDate(date);
+            }}
+            minimumDate={new Date()}
+          />
+        )}
 
-    onChange={(_, date) => {
-      setShowDatePicker(false);
-      if (date) setExpiryDate(date);
-    }}
-  />
-)}
-
-
-      <View style={styles.submitContainer}>
-        <Button title="Submit" onPress={handleSubmit} />
+        <Pressable style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.submitText}>Submit</Text>
+        </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    gap: 12,
+    paddingVertical: 20,
+    backgroundColor: '#fff',
+  },
+  formWrapper: {
+    width: 320,
+    alignSelf: 'center',
+    gap: 16,
   },
   label: {
     fontWeight: 'bold',
-    marginBottom: 4,
+    fontSize: 16,
+    color: '#1f2937',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#d1d5db',
     padding: 10,
-    borderRadius: 6,
+    borderRadius: 8,
     backgroundColor: 'white',
+    width: '100%',
   },
   picker: {
     backgroundColor: 'white',
-    borderRadius: 6,
+    borderRadius: 8,
+    width: '100%',
   },
   radioGroup: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
+    marginTop: 4,
   },
   radioButton: {
     paddingHorizontal: 12,
@@ -182,8 +188,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   radioSelected: {
-    backgroundColor: '#4ade80',
-    borderColor: '#16a34a',
+    backgroundColor: '#9333ea',
+    borderColor: '#7e22ce',
   },
   radioText: {
     color: 'black',
@@ -197,8 +203,20 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderColor: '#ccc',
     backgroundColor: 'white',
+    width: '100%',
   },
-  submitContainer: {
+  submitButton: {
+    backgroundColor: '#9333ea', // Tailwind: bg-purple-600
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
     marginTop: 20,
+    width: '100%',
+  },
+  submitText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
