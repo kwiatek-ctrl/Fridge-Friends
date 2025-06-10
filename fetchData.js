@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiClient = axios.create({
   baseURL: 'https://fridge-friends-be.onrender.com',
-  timeout: 10000,
+  timeout: 30000,
 });
 
 const ai = axios.create({
@@ -84,7 +84,7 @@ export function addItemToPantry(username, item) {
   camelCaseCategory += lowercase
     .split(', ')
     .reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
-
+    console.log(camelCaseCategory)
   return apiClient
     .post(`/users/${username}/pantry`, {
       name: item.name,
@@ -94,13 +94,12 @@ export function addItemToPantry(username, item) {
       category: camelCaseCategory,
       expiryDate: item.expiryDate,
     })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+    .then((response) => response.data)
+    .catch((err) => Promise.reject(err));
 }
+
+
+
 
 export function patchItemInPantry(username, itemID, item) {
   return apiClient
