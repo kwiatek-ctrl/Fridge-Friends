@@ -29,10 +29,9 @@ export default function UpdateItem({ username, item, onOptimisticUpdate }: Updat
   const [quantity, setQuantity] = useState(String(item.quantity));
   const [unit, setUnit] = useState(item.unit);
   const [loading, setLoading] = useState(false);
-
-const [open, setOpen] = useState(false);
-const [location, setLocation] = useState(item.location);
-const [items, setItems] = useState([
+  const [open, setOpen] = useState(false);
+  const [location, setLocation] = useState(item.location);
+  const [items, setItems] = useState([
   { label: 'Fridge', value: 'Fridge' },
   { label: 'Freezer', value: 'Freezer' },
   { label: 'Cupboard', value: 'Cupboard' },
@@ -40,7 +39,6 @@ const [items, setItems] = useState([
 
   const handleUpdate = () => {
     setLoading(true);
-
     const updatedItem = {
         ...item,
         quantity: Number(quantity),
@@ -70,30 +68,50 @@ const [items, setItems] = useState([
   };
 
   return (
-    <View className="mt-4 space-y-2">
-      <TextInput
-        className="border px-3 py-2 rounded"
-        value={quantity}
-        onChangeText={setQuantity}
-        placeholder="Quantity"
-        keyboardType="numeric"
-      />
-      <TextInput
-        className="border px-3 py-2 rounded"
-        value={unit}
-        onChangeText={setUnit}
-        placeholder="Unit"
-      />
-      <DropDownPicker
-        open={open}
-        value={location}
-        items={items}
-        setOpen={setOpen}
-        setValue={setLocation}
-        setItems={setItems}
-        placeholder="Select location"
-        listMode="MODAL" 
-    />
+    <View className="mt-4 space-y-4">
+      {/* Quantity */}
+      <View className="flex-row items-center">
+        <Text className="w-24">Quantity:</Text>
+        <TextInput
+          className="flex-1 border px-3 py-2 rounded"
+          value={quantity}
+          onChangeText={setQuantity}
+          placeholder="Quantity"
+          keyboardType="numeric"
+        />
+      </View>
+
+      {/* Unit */}
+      <View className="flex-row items-center">
+        <Text className="w-24">Units:</Text>
+        <TextInput
+          className="flex-1 border px-3 py-2 rounded"
+          value={unit}
+          onChangeText={setUnit}
+          placeholder="Unit"
+        />
+      </View>
+
+      {/* Location */}
+      <View className="flex-row items-center z-50">
+        <Text className="w-24">Location:</Text>
+        <View className="flex-1">
+          <DropDownPicker
+            open={open}
+            value={location}
+            items={items}
+            setOpen={setOpen}
+            setValue={setLocation}
+            setItems={setItems}
+            placeholder="Select location"
+            listMode="MODAL"
+            zIndex={3000}
+            zIndexInverse={1000}
+          />
+        </View>
+      </View>
+
+      {/* Submit */}
       <Pressable
         className={`bg-blue-500 px-4 py-2 rounded ${loading ? 'opacity-50' : ''}`}
         onPress={handleUpdate}
