@@ -7,7 +7,7 @@ const apiClient = axios.create({
 
 const ai = axios.create({
   baseURL: 'https://fridge-friends-ai.onrender.com',
-  timeout: 60000,
+  timeout: 180000,
 });
 
 export function fetchUsers() {
@@ -135,7 +135,11 @@ export function deleteItemFromPantry(username, itemID) {
 }
 
 export function getRecipies(input) {
+
   console.log(input, '>>');
+
+  
+
   return ai
     .post('/api/generate-recipe', {
       ingredients: input.ingredients,

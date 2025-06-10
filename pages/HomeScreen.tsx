@@ -59,7 +59,7 @@ export function HomeScreen({ navigation }) {
         />
         <Pressable onPress={() => navigation.navigate('Login')}>
           <Image
-            source={require('../assets/tomato-icon.png')}
+            source={require('../assets/apple-logo.png')}
             style={{ width: 56, height: 56 }}
             resizeMode="contain"
           />

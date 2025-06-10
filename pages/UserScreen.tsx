@@ -1,5 +1,11 @@
-import { View, Text, ScrollView, Image } from 'react-native';
-import {BackButton} from 'components/BackButton';
+
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import BackButton from 'components/BackButton';
+import { useNavigation } from '@react-navigation/native';
+
+
+
+
 
 export default function UserScreen() {
   const loggedInUser = {
@@ -15,57 +21,82 @@ export default function UserScreen() {
     __v: 0,
     _id: '6842b9ba3572c18e80b05a1c',
   };
+  const navigation = useNavigation<any>();
+
+  const handleLogOut = () => {
+    navigation.navigate('Login');
+  };
+  const handleEditprofile = () => {
+    navigation.navigate('EditProfile', { userData: loggedInUser });
+  };
+
+
+
+
   return (
-    
-    <ScrollView className="flex-1 bg-gray-100 p-6">
-       
-      <View className="mx-auto w-full max-w-lg rounded-2xl bg-white p-6 shadow">
-       <BackButton />
-        {/* Profile Picture */}
-        <Image className={styles.appleLogo} source={require('../assets/apple-logo.png')} />
-        {/* {loggedInUser.profilePicURL ? (
-          <Image
-            source={{ uri: loggedInUser.profilePicURL }}
-            className="w-32 h-32 rounded-full mx-auto mb-6"
-          />
-        ) : (
-          <View className="w-32 h-32 rounded-full bg-gray-300 mx-auto mb-6 flex items-center justify-center">
-            <Text className="text-gray-500 text-6xl">👤</Text>
+    <ScrollView className="flex-1 bg-white">
+      <View className="min-h-screen flex-1 items-center justify-center px-4 py-8">
+        <View className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
+          <BackButton />
+
+          <View className="mb-6 items-center">
+            <Image className={styles.appleLogo} source={require('../assets/apple-logo.png')} />
           </View>
-        )} */}
+          <View className="relative">
+            <TouchableOpacity
 
-        {/* Username */}
-        <Text className="mb-4 text-center text-3xl font-bold">Hello, {loggedInUser.username}!</Text>
+              className="absolute right-0 top-0 z-10 rounded-full bg-[#0D4A59] p-2"
 
-        {/* Name */}
-        <Text className="mb-6 text-center text-xl">{loggedInUser.name}</Text>
+              onPress={handleEditprofile}>
+              <Text className="text-xs font-bold text-white">Edit</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Details */}
-        <View className="space-y-4">
-          <Text className="text-gray-700">
-            <Text className="font-semibold">Email: </Text>
-            {loggedInUser.emailAddress}
+          {/* Username */}
+
+          <Text className="mb-2 text-center text-3xl font-extrabold text-blue-700">
+            Hello, {loggedInUser.username}!
           </Text>
 
-          <Text className="text-gray-700">
-            <Text className="font-semibold">Allergies: </Text>
-            {loggedInUser.allergies}
-          </Text>
+          {/* Name */}
+          <Text className="mb-6 text-center text-lg text-gray-700">{loggedInUser.name}</Text>
 
-          <Text className="text-gray-700">
-            <Text className="font-semibold">Dietary Requirements: </Text>
-            {loggedInUser.dietaryRequirements}
-          </Text>
+          {/* Details */}
+          <View className="space-y-3">
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Email:</Text>
+              <Text className="flex-1 text-gray-800">{loggedInUser.emailAddress || '-'}</Text>
+            </View>
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Allergies:</Text>
+              <Text className="flex-1 text-gray-800">{loggedInUser.allergies || '-'}</Text>
+            </View>
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Dietary:</Text>
+              <Text className="flex-1 text-gray-800">
+                {loggedInUser.dietaryRequirements || '-'}
+              </Text>
+            </View>
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Date Added:</Text>
+              <Text className="flex-1 text-gray-800">
+                {new Date(loggedInUser.dateAdded).toLocaleDateString()}
+              </Text>
+            </View>
 
-          <Text className="text-gray-700">
-            <Text className="font-semibold">Date Added: </Text>
-            {new Date(loggedInUser.dateAdded).toLocaleDateString()}
-          </Text>
+            <TouchableOpacity
+              className="ml-0 mt-2 w-auto rounded bg-[#0D4A59] px-2 py-0.5"
+              onPress={handleLogOut}>
+
+              <Text className="text-center text-xs font-bold text-white">Log out</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </ScrollView>
   );
 }
+
 const styles = {
   appleLogo: 'object-scale-down h-40 w-40 mx-auto mb-4 ',
 };
