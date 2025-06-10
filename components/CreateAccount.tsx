@@ -61,13 +61,9 @@ export default function CreateAccount({onUserAdded}) {
     addUser(user)
       .then((newUser) => {
 
-      
-
-      
         setLoggedInUser(newUser)
         console.log(newUser)
         navigation.navigate('User')
-
 
         setErrors({});
         })
@@ -149,7 +145,7 @@ const styles = {
   label: 'text-base font-bold text-gray-800',
   input: 'border border-gray-300 rounded-md p-2 bg-white w-full',
   inputGroup: 'mb-4',
-  button: 'bg-purple-600 py-3 rounded-md w-full',
+  button: 'bg-[#0D4A59] py-3 rounded-md w-full',
   buttonText: 'text-white text-center font-bold text-base',
   errorText: 'text-red-500 text-sm mt-1',
 };

@@ -56,7 +56,7 @@ export default function RecipeFilterScreen({ navigation }) {
         {/* Generate Button */}
         <Pressable
           onPress={() => navigation.navigate('RecipeResult')}
-          className="bg-purple-600 py-3 rounded-lg mb-10"
+          className="bg-[#0D4A59] py-3 rounded-lg mb-10"
         >
           <Text className="text-white text-center text-lg font-bold">Generate</Text>
         </Pressable>

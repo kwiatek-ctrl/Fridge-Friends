@@ -27,7 +27,8 @@ export function ShelfButton({ label, onPress }: { label: string; onPress?: () =>
       {/* Green button */}
       <Pressable
         onPress={onPress}
-        className="bg-lime-700 rounded-full px-10 py-4 shadow-lg"
+        className="bg-[#0D4A59] rounded-full px-10 py-4 shadow-lg"
+
         style={{
           minWidth: 400,
           alignSelf: 'center',

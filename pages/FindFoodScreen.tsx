@@ -61,7 +61,8 @@ export default function FindFoodScreen({ navigation }) {
         {/* Upload Button */}
         <Pressable
           onPress={() => navigation.navigate('UploadToFindFood')}
-          className="bg-purple-600 py-3 rounded-lg mb-6"
+          className="bg-[#0D4A59] py-3 rounded-lg mb-6"
+
         >
           <Text className="text-white text-center font-bold">Upload Food</Text>
         </Pressable>
