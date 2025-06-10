@@ -11,19 +11,19 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { addItemToPantry } from '../fetchData'; 
+import { addItemToPantry } from '../fetchData';
 
 const units = ['g', 'kg', 'ml', 'l', 'pcs'];
 const categories = [
   'Dairy, Eggs',
-  'meatFishSeafood',
-  'fruitVeg',
-  'snacksSweets',
-  'drinks',
-  'herbsSpicesCondiments',
-  'breadBakery',
-  'tinsJars',
-  'other',
+  'Meat, Fish, Seafood',
+  'Fruit, Veg',
+  'Snacks, Sweets',
+  'Drinks',
+  'Herbs, Spices, Condiments',
+  'Bread, Bakery',
+  'Tins, Jars',
+  'Other',
 ];
 const locations = ['fridge', 'freezer', 'cupboard'];
 
@@ -50,26 +50,24 @@ export default function AddItem() {
     }
 
     const item = {
-  name: name.trim(),
-  quantity: parsedQuantity,
-  unit,
-  category,
-  location,
-  expiryDate: expiryDate.toISOString(), 
-};
-
+      name: name.trim(),
+      quantity: parsedQuantity,
+      unit,
+      category,
+      location,
+      expiryDate: expiryDate.toISOString(),
+    };
 
     console.log('Submitting item:', JSON.stringify(item, null, 2));
 
     try {
       const username = 'fridge1234'; // Replace later with dynamic user
- console.log('Submitting item:', JSON.stringify(item, null, 2));
- console.log('Type of quantity:', typeof parsedQuantity);
-
+      console.log('Submitting item:', JSON.stringify(item, null, 2));
+      console.log('Type of quantity:', typeof parsedQuantity);
 
       await addItemToPantry(username, item);
       Alert.alert('Success', 'Item successfully added to pantry!');
-      
+
       // Reset form
       setName('');
       setQuantity('');
@@ -78,16 +76,14 @@ export default function AddItem() {
       setLocation(locations[0]);
       setExpiryDate(new Date());
     } catch (error) {
-  if (error.response) {
-    console.error('Error adding item:', JSON.stringify(error.response.data, null, 2));
-    Alert.alert('Server Error', JSON.stringify(error.response.data));
-  } else {
-    console.error('Unexpected error:', error.message);
-    Alert.alert('Error', 'An unexpected error occurred.');
-  }
-}
-
-
+      if (error.response) {
+        console.error('Error adding item:', JSON.stringify(error.response.data, null, 2));
+        Alert.alert('Server Error', JSON.stringify(error.response.data));
+      } else {
+        console.error('Unexpected error:', error.message);
+        Alert.alert('Error', 'An unexpected error occurred.');
+      }
+    }
   };
 
   return (
@@ -130,8 +126,7 @@ export default function AddItem() {
             <Pressable
               key={loc}
               style={[styles.radioButton, location === loc && styles.radioSelected]}
-              onPress={() => setLocation(loc)}
-            >
+              onPress={() => setLocation(loc)}>
               <Text style={location === loc ? styles.radioTextSelected : styles.radioText}>
                 {loc}
               </Text>
