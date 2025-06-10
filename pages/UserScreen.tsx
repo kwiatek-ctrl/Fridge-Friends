@@ -1,25 +1,29 @@
 import { View, Text, ScrollView, Image } from 'react-native';
+import {BackButton} from 'components/BackButton';
 
 export default function UserScreen() {
   const loggedInUser = {
-    allergies: 'biscuit',
+    allergies: 'pinuts',
     dateAdded: '2025-06-06T09:49:46.402Z',
     dietaryRequirements: 'biscuit',
-    emailAddress: 'biscuit',
+    emailAddress: 'biscuit@gmail.com',
     householdID: null,
-    name: 'biscuit',
+    name: 'Jason',
     pantry: [],
     profilePicURL: '',
-    username: 'biscuit',
+    username: 'Biscuit',
     __v: 0,
     _id: '6842b9ba3572c18e80b05a1c',
   };
   return (
-   
-      <ScrollView className="flex-1 bg-gray-100 p-6">
-      <View className="bg-white rounded-2xl shadow p-6 max-w-lg mx-auto w-full">
+    
+    <ScrollView className="flex-1 bg-gray-100 p-6">
+       
+      <View className="mx-auto w-full max-w-lg rounded-2xl bg-white p-6 shadow">
+       <BackButton />
         {/* Profile Picture */}
-        {loggedInUser.profilePicURL ? (
+        <Image className={styles.appleLogo} source={require('../assets/apple-logo.png')} />
+        {/* {loggedInUser.profilePicURL ? (
           <Image
             source={{ uri: loggedInUser.profilePicURL }}
             className="w-32 h-32 rounded-full mx-auto mb-6"
@@ -28,15 +32,13 @@ export default function UserScreen() {
           <View className="w-32 h-32 rounded-full bg-gray-300 mx-auto mb-6 flex items-center justify-center">
             <Text className="text-gray-500 text-6xl">👤</Text>
           </View>
-        )}
+        )} */}
 
         {/* Username */}
-        <Text className="text-3xl font-bold text-center mb-4">
-          {loggedInUser.username}
-        </Text>
+        <Text className="mb-4 text-center text-3xl font-bold">Hello, {loggedInUser.username}!</Text>
 
         {/* Name */}
-        <Text className="text-xl text-center mb-6">{loggedInUser.name}</Text>
+        <Text className="mb-6 text-center text-xl">{loggedInUser.name}</Text>
 
         {/* Details */}
         <View className="space-y-4">
@@ -64,3 +66,6 @@ export default function UserScreen() {
     </ScrollView>
   );
 }
+const styles = {
+  appleLogo: 'object-scale-down h-40 w-40 mx-auto mb-4 ',
+};

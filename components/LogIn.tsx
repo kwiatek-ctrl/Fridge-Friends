@@ -11,7 +11,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
   const forgotPass = 'Forgot Password?';
 
   return (
-    <View>
+    <View >
        <BackButton />
        <ScrollView className="flex-1 px-6 pt-20">
       <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
@@ -56,17 +56,18 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 
 const styles = {
   codeHighlightContainer: `rounded-md px-1`,
-  getStartedContainer: `justify-items-normal mx-12`,
+  getStartedContainer: `justify-items-normal mx-12 mt-40`,
   getStartedText: `text-lg leading-6 text-left pt-3`,
   helpContainer: `items-center mx-5 mt-4`,
   helpLink: `py-4`,
   helpLinkText: `text-center`,
   homeScreenFilename: `my-2`,
-  inputArea: 'border border-black-600 rounded-md p-1 w-80 h-10',
-  buttonLogIn: 'justify-items-center bg-sky-500 rounded-2xl p-2 mt-3 w-60',
+  // inputArea: 'border border-black-600 rounded-md p-1 w-80 h-10',
+   inputArea: 'border border-black-300 rounded-md p-1 w-80 h-10',
+  buttonLogIn: 'justify-items-center w-full bg-sky-400 rounded-2xl p-2 mt-3 w-60 mb-3',
   logIn: 'text-center text-white',
   footerSignUp: 'underline text-lg',
   formFooter: 'text-center p-4 text-gray-600',
   signInContainer: 'items-center ',
-  logo: 'object-scale-down h-40 w-40 mx-auto mb-4',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-4 ',
 };

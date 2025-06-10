@@ -148,6 +148,6 @@ const styles = {
   input: 'border border-gray-300 rounded-lg p-2 mb-1 bg-white',
   button: 'bg-cyan-500 p-3 rounded-lg mt-4',
   buttonText: 'text-white text-center font-bold',
-  logo: 'object-scale-down h-10 w-10 mx-auto mb-3',
+  logo: 'object-scale-down h-20 w-20 mx-auto mb-3',
   label: 'text-base font-bold mb-1 text-gray-800',
 };

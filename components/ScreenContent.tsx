@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { EditScreenInfo } from './EditScreenInfo';
+import { EditScreenInfo } from './LogIn';
 
 
 type ScreenContentProps = {
