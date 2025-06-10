@@ -4,6 +4,9 @@ import { fetchUserPantry } from 'fetchData.js';
 import PantryItem from '../components/PantryItem';
 import BackButton from "components/BackButton";
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type PantryItem = {
   _id: string;
@@ -19,6 +22,7 @@ const LOCATIONS = ["All", "Fridge", "Freezer", "Cupboard"];
 
 export default function InventoryScreen() {
   const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -32,8 +36,10 @@ export default function InventoryScreen() {
     { label: "All", value: "All" }
   ]);
 
+  
+
   useEffect(() => {
-    const username = 'tinned-tomato'; 
+    const username = 'fridge1234'; 
 
     fetchUserPantry(username)
       .then((items) => {
@@ -73,12 +79,26 @@ export default function InventoryScreen() {
     );
   };
 
+  const handleItemDelete = (deletedId: string) => {
+    setPantryItems(prev => prev.filter(item => item._id !== deletedId));
+  };
+
   return (
     <View className="flex-1 bg-white pt-[72px] p-4">
       <BackButton />
+      <TouchableOpacity
+  onPress={() => navigation.navigate('AddItem')}
+  style={{
+    position: 'absolute',
+    top: 40,
+    right: 16,
+    zIndex: 100,
+  }}
+>
+  <Ionicons name="add" size={32} color="black" />
+</TouchableOpacity>
       <Text className="text-2xl font-bold mb-4 text-center">My Food</Text>
 
-      {/* Dropdown filters */}
       <View className="z-50 mb-4">
         <DropDownPicker
           open={locationOpen}
@@ -113,8 +133,9 @@ export default function InventoryScreen() {
         renderItem={({ item }) => (
           <PantryItem
             item={item}
-            username="tinned-tomato"
+            username="fridge1234"
             onOptimisticUpdate={handleItemUpdate}
+            onDeleteItem={handleItemDelete}
           />
         )}
       />
