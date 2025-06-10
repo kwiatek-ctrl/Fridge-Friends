@@ -135,15 +135,18 @@ export function deleteItemFromPantry(username, itemID) {
 }
 
 export function getRecipies(input) {
+  console.log(input, '>>');
   return ai
-    .post('/api/generate-recipies', {
+    .post('/api/generate-recipe', {
       ingredients: input.ingredients,
       allergies: input.allergies.length > 0 ? input.allergies : null,
       dietaryRequirements: input.dietaryRequirements.length > 0 ? input.dietaryRequirements : null,
+      cookTime: input.cookingTime
     })
     .then((response) => {
-      const parsedRecipies = JSON.parse(response);
-      return parsedRecipies;
+      //const parsedRecipies = JSON.parse(response);
+      //return parsedRecipies;
+      return response.data
     })
     .catch((err) => {
       return Promise.reject(err);

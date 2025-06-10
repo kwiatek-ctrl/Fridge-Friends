@@ -1,13 +1,16 @@
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useState } from 'react';
 import BackButton from '../components/BackButton';
-import recipesData from '../practice-recipes';
+//import recipesData from '../practice-recipes';
+import { useRoute } from '@react-navigation/native';
 
 export default function RecipeResultScreen() {
   const [unitSystem, setUnitSystem] = useState<'metric' | 'imperial'>('metric');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const route = useRoute();
+  const recipes =route.params?.recipes || [];
 
-  const recipes = recipesData.recipes;
+ // const recipes = recipesData.recipes;
   const current = recipes[currentIndex];
 
   const toggleUnit = () => {
@@ -39,6 +42,8 @@ export default function RecipeResultScreen() {
 
         {/* Title */}
         <Text className="text-xl font-bold mb-4">{current.title}</Text>
+        {/* Time */}
+          <Text className="text-base font-medium mb-4">Cooking time: {current.cookingTime}</Text>
 
         {/* Ingredients header and toggle */}
         <View className="flex-row justify-between items-center mb-2">
