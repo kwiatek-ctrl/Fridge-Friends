@@ -4,19 +4,23 @@ import BackButton from '../components/BackButton';
 import IngredientsDropdown from '../components/IngredientsDropdown';
 import CookTimeDropdown from '../components/CookTimeDropdown';
 import DietaryFilterDropdown from '../components/DietaryFilterDropdown';
-import { fetchUserPantry } from '../fetchData';
+import { fetchUserPantry, getRecipies } from '../fetchData';
 
 export default function RecipeFilterScreen({ navigation }) {
   const [inventoryOnly, setInventoryOnly] = useState(true);
   const [pantryItems, setPantryItems] = useState([]);
-  const [selectedCookTimes, setSelectedCookTimes] = useState<string[]>([]);
+  const [selectedCookTimes, setSelectedCookTimes] = useState('< 1 hr');
   const [selectedDietaryFilters, setSelectedDietaryFilters] = useState<string[]>([]);
+
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+
 
   useEffect(() => {
     const getIngredients = async () => {
       try {
-        const data = await fetchUserPantry('tinned-tomato', null, null);
+        const data = await fetchUserPantry('lettuce-eat', null, null);
         setPantryItems(data);
+        setSelectedIngredients(data.map((item)=>item.name));
       } catch (error) {
         console.error('Error fetching pantry items:', error);
       }
@@ -31,21 +35,20 @@ export default function RecipeFilterScreen({ navigation }) {
         <Text className="text-2xl font-bold mb-4">Find Recipes</Text>
 
         {/* Ingredients Dropdown */}
-        <IngredientsDropdown ingredients={pantryItems} />
+        <IngredientsDropdown
+       ingredients={pantryItems}
+        selected={selectedIngredients}
+        onChange={setSelectedIngredients}
+/>
 
         {/* Cook Time Dropdown */}
-        <CookTimeDropdown selected={selectedCookTimes} onSelect={(val) => {
-          setSelectedCookTimes((prev) =>
-            prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
-          );
-        }} />
+        <CookTimeDropdown selected={selectedCookTimes} onSelect={setSelectedCookTimes}/>
 
         {/* Dietary Filter Dropdown */}
-        <DietaryFilterDropdown selected={selectedDietaryFilters} onSelect={(val) => {
-          setSelectedDietaryFilters((prev) =>
-            prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
-          );
-        }} />
+        <DietaryFilterDropdown
+       selected={selectedDietaryFilters}
+      onSelect={setSelectedDietaryFilters}
+        />
 
         {/* Inventory Only Toggle */}
         <View className="items-center mb-6">
@@ -60,6 +63,22 @@ export default function RecipeFilterScreen({ navigation }) {
         >
           <Text className="text-white text-center text-lg font-bold">Generate</Text>
         </Pressable>
+
+{/* Practice Generate Button */}
+       <Pressable
+  onPress={() => {
+   getRecipies({ingredients: selectedIngredients, allergies: '', dietaryRequirements: selectedDietaryFilters, cookingTime: selectedCookTimes })
+   .then((response) => {
+    console.log(response);
+    navigation.navigate('RecipeResult', {recipes: response.recipes})
+   })
+
+    //
+  }}
+  className="bg-green-600 py-3 rounded-lg mb-10"
+>
+  <Text className="text-white text-center text-lg font-bold">Practice Generate</Text>
+</Pressable>
       </ScrollView>
     </View>
   );

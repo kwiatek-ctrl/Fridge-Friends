@@ -1,6 +1,6 @@
 import { View, Text, Pressable, FlatList } from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const dietaryOptions = [
   'Vegetarian',
@@ -8,17 +8,22 @@ const dietaryOptions = [
   'Gluten free',
   'Dairy free',
   'Nut free',
-  
 ];
 
-export default function DietaryFilterDropdown() {
+export default function DietaryFilterDropdown({
+  selected = [],
+  onSelect = () => {},
+}: {
+  selected?: string[];
+  onSelect?: (newSelected: string[]) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
 
   const toggleItem = (name: string) => {
-    setSelected((prev) =>
-      prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name]
-    );
+    const newSelected = selected.includes(name)
+      ? selected.filter((i) => i !== name)
+      : [...selected, name];
+    onSelect(newSelected);
   };
 
   return (
