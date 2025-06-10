@@ -2,7 +2,12 @@ import axios from 'axios';
 
 const apiClient = axios.create({
   baseURL: 'https://fridge-friends-be.onrender.com',
-  timeout: 10000,
+  timeout: 30000,
+});
+
+const ai = axios.create({
+  baseURL: 'https://fridge-friends-ai.onrender.com',
+  timeout: 60000,
 });
 
 export function fetchUsers() {
@@ -66,7 +71,6 @@ export function addUser(user) {
       dietaryRequirements: user.dietaryRequirements,
     })
     .then((response) => {
-      
       return response.data;
     })
     .catch((err) => {
@@ -75,22 +79,27 @@ export function addUser(user) {
 }
 
 export function addItemToPantry(username, item) {
+  let camelCaseCategory = '';
+  const lowercase = item.category.toLowerCase();
+  camelCaseCategory += lowercase
+    .split(', ')
+    .reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
+    console.log(camelCaseCategory)
   return apiClient
     .post(`/users/${username}/pantry`, {
       name: item.name,
       quantity: item.quantity,
       unit: item.unit,
       location: item.location,
-      category: item.category,
+      category: camelCaseCategory,
       expiryDate: item.expiryDate,
     })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+    .then((response) => response.data)
+    .catch((err) => Promise.reject(err));
 }
+
+
+
 
 export function patchItemInPantry(username, itemID, item) {
   return apiClient
@@ -123,4 +132,20 @@ export function deleteItemFromPantry(username, itemID) {
   return apiClient.delete(`users/${username}/pantry/${itemID}`).catch((err) => {
     return Promise.reject(err);
   });
+}
+
+export function getRecipies(input) {
+  return ai
+    .post('/api/generate-recipies', {
+      ingredients: input.ingredients,
+      allergies: input.allergies.length > 0 ? input.allergies : null,
+      dietaryRequirements: input.dietaryRequirements.length > 0 ? input.dietaryRequirements : null,
+    })
+    .then((response) => {
+      const parsedRecipies = JSON.parse(response);
+      return parsedRecipies;
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
 }

@@ -143,11 +143,14 @@ export default function CreateAccount({onUserAdded}) {
 }
 
 const styles = {
-  container: 'p-4 bg-gray-100 rounded-lg m-4',
-  title: 'text-2xl font-bold text-center text-gray-800 mb-4',
-  input: 'border border-gray-300 rounded-lg p-2 mb-1 bg-white',
-  button: 'bg-cyan-500 p-3 rounded-lg mt-4',
-  buttonText: 'text-white text-center font-bold',
-  logo: 'object-scale-down h-20 w-20 mx-auto mb-3',
-  label: 'text-base font-bold mb-1 text-gray-800',
+  container: 'flex-1 bg-white px-6 pt-20',
+  title: 'text-2xl font-bold text-center text-gray-800 mb-6',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-6',
+  label: 'text-base font-bold text-gray-800',
+  input: 'border border-gray-300 rounded-md p-2 bg-white w-full',
+  inputGroup: 'mb-4',
+  button: 'bg-purple-600 py-3 rounded-md w-full',
+  buttonText: 'text-white text-center font-bold text-base',
+  errorText: 'text-red-500 text-sm mt-1',
 };
+
