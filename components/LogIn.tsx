@@ -96,7 +96,7 @@ const styles = {
   helpContainer: `items-center mx-5 mt-4`,
   helpLinkText: `text-center text-gray-600`,
   inputArea: 'border border-gray-400 rounded-md p-2 w-full',
-  buttonLogIn: 'bg-purple-600 rounded-md py-3 w-full',
+  buttonLogIn: 'bg-[#0D4A59] rounded-md py-3 w-full',
   logIn: 'text-center text-white font-bold text-base',
   footerSignUp: 'underline text-base text-purple-700',
   formFooter: 'text-center p-4 text-gray-600 text-base',

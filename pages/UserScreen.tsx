@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image } from 'react-native';
-import {BackButton} from 'components/BackButton';
+import BackButton from 'components/BackButton';
 
 export default function UserScreen() {
   const loggedInUser = {
