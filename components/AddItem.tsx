@@ -195,14 +195,16 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   radioButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#ccc',
-  },
+  paddingHorizontal: 14,
+  paddingVertical: 10,
+  borderWidth: 1,
+  borderRadius: 20,
+  borderColor: '#ccc',
+  backgroundColor: '#fff',
+},
+
   radioSelected: {
-    backgroundColor: '#9333ea',
+    backgroundColor: '#0D4A59',
     borderColor: '#7e22ce',
   },
   radioText: {
@@ -210,6 +212,7 @@ const styles = StyleSheet.create({
   },
   radioTextSelected: {
     color: 'white',
+     fontWeight: 'bold',
   },
   dateButton: {
     padding: 10,
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   submitButton: {
-    backgroundColor: '#9333ea',
+    backgroundColor: '#0D4A59',
     paddingVertical: 12,
     borderRadius: 12,
     alignItems: 'center',

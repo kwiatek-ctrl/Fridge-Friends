@@ -1,6 +1,11 @@
+
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import BackButton from 'components/BackButton';
 import { useNavigation } from '@react-navigation/native';
+
+import { View, Text, ScrollView, Image } from 'react-native';
+import BackButton from 'components/BackButton';
+
 
 export default function UserScreen() {
   const loggedInUser = {
