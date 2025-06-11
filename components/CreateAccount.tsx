@@ -139,13 +139,13 @@ export default function CreateAccount({onUserAdded}) {
 }
 
 const styles = {
-  container: 'flex-1 bg-white px-6 pt-20',
+  container: 'flex-1 bg-white ',
   title: 'text-2xl font-bold text-center text-gray-800 mb-6',
   logo: 'object-scale-down h-40 w-40 mx-auto mb-6',
   label: 'text-base font-bold text-gray-800',
   input: 'border border-gray-300 rounded-md p-2 bg-white w-full',
   inputGroup: 'mb-4',
-  button: 'bg-[#0D4A59] py-3 rounded-md w-full',
+  button: 'bg-[#0D4A59] py-3 rounded-md w-full mt-5',
   buttonText: 'text-white text-center font-bold text-base',
   errorText: 'text-red-500 text-sm mt-1',
 };

@@ -33,7 +33,7 @@ export default function UserScreen() {
           </View>
           <View className="relative">
             <TouchableOpacity
-              className="absolute right-0 top-0 z-10 rounded-full bg-[#0D4A59] p-2"
+              className="absolute right-0 top-0 z-10 w-10 h-10 rounded-full bg-[#0D4A59] items-center justify-center"
               onPress={handleEditprofile}>
               <Text className="text-xs font-bold text-white">Edit</Text>
             </TouchableOpacity>
@@ -41,7 +41,7 @@ export default function UserScreen() {
 
           {/* Username */}
 
-          <Text className="mb-2 text-center text-3xl font-extrabold bg-[#0D4A59]">
+          <Text className="mb-2 text-center text-3xl font-extrabold ">
             Hello, {loggedInUser.username}!
           </Text>
 
