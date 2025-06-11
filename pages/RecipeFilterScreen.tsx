@@ -4,7 +4,7 @@ import BackButton from '../components/BackButton';
 import IngredientsDropdown from '../components/IngredientsDropdown';
 import CookTimeDropdown from '../components/CookTimeDropdown';
 import DietaryFilterDropdown from '../components/DietaryFilterDropdown';
-import { fetchUserPantry, getRecipies } from '../fetchData';
+import { fetchUserPantry, getRecipes } from '../fetchData';
 
 
 export default function RecipeFilterScreen({ navigation }) {
@@ -74,7 +74,7 @@ if (loading) {
         {/* Generate Button */}
               <Pressable
   onPress={() => {(async () => {setLoading(true); try {const response = await 
-   getRecipies({ingredients: selectedIngredients, allergies: '', 
+   getRecipes({ingredients: selectedIngredients, allergies: '', 
     dietaryRequirements: selectedDietaryFilters, 
     cookingTime: selectedCookTimes, onlyInventory: onlyInventoryText })
    

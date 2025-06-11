@@ -62,7 +62,6 @@ export default function CreateAccount() {
       .then((newUser) => {
 
         setLoggedInUser(newUser)
-        console.log(newUser)
         navigation.navigate('User')
 
         setErrors({});
