@@ -1,20 +1,19 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import BackButton from 'components/BackButton';
 import { useNavigation } from '@react-navigation/native';
-
+import { useEffect, useState } from 'react';
+import { fetchUserByUsername } from 'fetchData';
 
 export default function UserScreen() {
-  const loggedInUser = {
- 
-     username: "fridge1234",
-    name: "John Smith",
-    emailAddress: "email@address.com",
-    profilePicURL: "",
-    householdID: "d5TFbn",
-    allergies: "milk, peanuts",
-    dietaryRequirements: "",
-    dateAdded: '2025-06-06T09:49:46.402Z',
-  };
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    const username = 'lettuce-eat';
+    fetchUserByUsername(username).then((user) => {
+      setLoggedInUser(user);
+    });
+  });
+
   const navigation = useNavigation<any>();
 
   const handleLogOut = () => {
@@ -23,7 +22,6 @@ export default function UserScreen() {
   const handleEditprofile = () => {
     navigation.navigate('EditProfile', { userData: loggedInUser });
   };
-
 
   return (
     <ScrollView className="flex-1 bg-white">
@@ -36,9 +34,7 @@ export default function UserScreen() {
           </View>
           <View className="relative">
             <TouchableOpacity
-
-              className="absolute right-0 top-0 z-10 w-10 h-10 rounded-full bg-[#0D4A59] items-center justify-center"
-
+              className="absolute right-0 top-0 z-10 h-10 w-10 items-center justify-center rounded-full bg-[#0D4A59]"
               onPress={handleEditprofile}>
               <Text className="text-xs font-bold text-white">Edit</Text>
             </TouchableOpacity>
@@ -64,31 +60,26 @@ export default function UserScreen() {
               <Text className="flex-1 text-gray-800">{loggedInUser.allergies || '-'}</Text>
             </View>
             <View className="mb-2 flex-row items-center">
-              <Text className="w-32 font-semibold text-gray-500">Dietary:</Text>
+              <Text className="w-32 font-semibold text-gray-500">Diet:</Text>
               <Text className="flex-1 text-gray-800">
                 {loggedInUser.dietaryRequirements || '-'}
               </Text>
             </View>
             <View className="mb-2 flex-row items-center">
-              <Text className="w-32 font-semibold text-gray-500">Date Added:</Text>
+              <Text className="w-32 font-semibold text-gray-500">Date Joined:</Text>
               <Text className="flex-1 text-gray-800">
                 {new Date(loggedInUser.dateAdded).toLocaleDateString()}
               </Text>
             </View>
 
             <View className="mb-2 flex-row items-center">
-              <Text className="w-32 font-semibold text-gray-500">Household Id:</Text>
-              <Text className="flex-1 text-gray-800">
-                {loggedInUser.householdID || '-'}
-              </Text>
+              <Text className="w-32 font-semibold text-gray-500">Household ID:</Text>
+              <Text className="flex-1 text-gray-800">{loggedInUser.householdID || '-'}</Text>
             </View>
-            
-
 
             <TouchableOpacity
               className="ml-0 mt-2 w-auto rounded bg-[#0D4A59] px-2 py-0.5"
               onPress={handleLogOut}>
-
               <Text className="text-center text-xs font-bold text-white">Log out</Text>
             </TouchableOpacity>
           </View>

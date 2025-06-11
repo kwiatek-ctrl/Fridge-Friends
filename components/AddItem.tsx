@@ -59,7 +59,7 @@ export default function AddItem() {
     };
 
     try {
-      const username = 'fridge1234'; // Replace later with dynamic user
+      const username = 'lettuce-eat'; // Replace later with dynamic user
       await addItemToPantry(username, item);
       Alert.alert('Success', 'Item successfully added to pantry!');
       setName('');
