@@ -69,9 +69,7 @@ export default function IngredientsDropdown({
                   >
                     {item.name}
                   </Text>
-                  {isSelected && (
-                    <Ionicons name="checkmark" size={20} color="#9333ea" />
-                  )}
+                  {isSelected && <Ionicons name="checkmark" size={20} color="#9333ea" />}
                 </Pressable>
               );
             }}

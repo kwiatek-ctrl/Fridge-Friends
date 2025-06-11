@@ -52,9 +52,11 @@ export default function DietaryFilterDropdown({
                   className="px-4 py-2 border-b border-gray-200 flex-row justify-between items-center"
                 >
                   <Text
-                    className={`${
-                      isSelected ? 'font-bold text-purple-600' : 'text-black'
-                    }`}
+                   className={`${
+               isSelected ? 'font-bold text-[#0D4A59]' : 'text-black'
+              }`}
+                 >
+
                   >
                     {item}
                   </Text>
