@@ -3,6 +3,7 @@ import BackButton from 'components/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { fetchUserByUsername } from 'fetchData';
+import HomeButton from 'components/HomeButton';
 
 export default function UserScreen() {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -28,7 +29,7 @@ export default function UserScreen() {
       <View className="min-h-screen flex-1 items-center justify-center px-4 py-8">
         <View className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
           <BackButton />
-
+          <HomeButton />
           <View className="mb-6 items-center">
             <Image className={styles.appleLogo} source={require('../assets/apple-logo.png')} />
           </View>
