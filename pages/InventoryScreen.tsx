@@ -89,7 +89,7 @@ export default function InventoryScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white p-4 pt-[72px]">
+    <View className="flex-1 bg-white pt-[72px] p-4 mt-5">
       <BackButton />
 
       <TouchableOpacity
