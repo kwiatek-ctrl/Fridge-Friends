@@ -4,17 +4,15 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function UserScreen() {
   const loggedInUser = {
-    allergies: 'pinuts',
+ 
+     username: "fridge1234",
+    name: "John Smith",
+    emailAddress: "email@address.com",
+    profilePicURL: "",
+    householdID: "d5TFbn",
+    allergies: "milk, peanuts",
+    dietaryRequirements: "",
     dateAdded: '2025-06-06T09:49:46.402Z',
-    dietaryRequirements: 'biscuit',
-    emailAddress: 'biscuit@gmail.com',
-    householdID: null,
-    name: 'Jason',
-    pantry: [],
-    profilePicURL: '',
-    username: 'Biscuit',
-    __v: 0,
-    _id: '6842b9ba3572c18e80b05a1c',
   };
   const navigation = useNavigation<any>();
   const handleLogOut = () => {
@@ -43,7 +41,7 @@ export default function UserScreen() {
 
           {/* Username */}
 
-          <Text className="mb-2 text-center text-3xl font-extrabold text-blue-700">
+          <Text className="mb-2 text-center text-3xl font-extrabold bg-[#0D4A59]">
             Hello, {loggedInUser.username}!
           </Text>
 
@@ -72,6 +70,14 @@ export default function UserScreen() {
                 {new Date(loggedInUser.dateAdded).toLocaleDateString()}
               </Text>
             </View>
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Household Id:</Text>
+              <Text className="flex-1 text-gray-800">
+                {loggedInUser.householdID || '-'}
+              </Text>
+            </View>
+            
+
             <TouchableOpacity
               className="ml-0 mt-2 w-auto rounded bg-[#0D4A59] px-2 py-0.5"
               onPress={handleLogOut}>
