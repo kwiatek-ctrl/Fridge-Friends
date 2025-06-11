@@ -43,7 +43,9 @@ if (loading) {
     <View className="flex-1 bg-white relative">
       <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
-        <Text className="text-2xl font-bold mb-4">Find Recipes</Text>
+        <Text className="text-2xl font-bold text-center mb-4">Find Recipes</Text>
+
+        
 
         {/* Ingredients Dropdown */}
         <IngredientsDropdown
