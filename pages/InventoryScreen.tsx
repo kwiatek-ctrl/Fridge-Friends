@@ -5,6 +5,7 @@ import PantryItem from '../components/PantryItem';
 import BackButton from 'components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
 import CustomSelectDropdown from '../components/CustomSelectDropdown'; // nou
+import { useNavigation } from '@react-navigation/native';
 
 type PantryItem = {
   _id: string;
@@ -26,6 +27,8 @@ export default function InventoryScreen() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const [categoryOptions, setCategoryOptions] = useState<string[]>(['All']);
+
+  const navigation = useNavigation<any>()
 
   useEffect(() => {
     const username = 'lettuce-eat';
