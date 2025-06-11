@@ -25,7 +25,7 @@ export default function App() {
       <UserProvider>
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
           <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
           <Stack.Screen name="RecipeFilter" component={RecipeFilterScreen} />
           <Stack.Screen name="RecipeResult" component={RecipeResultScreen} />
