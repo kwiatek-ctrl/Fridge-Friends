@@ -13,7 +13,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { addItemToPantry } from '../fetchData';
 import CustomSelectDropdown from './CustomSelectDropdown'; // asigură-te că path-ul e corect
 
-const units = ['g', 'kg', 'ml', 'l', 'pcs'];
+const units = ['g', 'kg', 'ml', 'l', 'pcs', 'oz', 'lb', 'fl. oz', 'pints'];
 const categories = [
   'Dairy, Eggs',
   'Meat, Fish, Seafood',
