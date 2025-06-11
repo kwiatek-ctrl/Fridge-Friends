@@ -37,13 +37,13 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
   };
 
   return (
-    <View>
+    <View className='flex-1 bg-white'>
       <BackButton />
-      <ScrollView className="flex-1 px-6 pt-20">
+      <ScrollView className="flex-1 px-6 pt-20 ">
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 
         {/* Unified form container */}
-        <View className="w-80 mx-auto space-y-3">
+        <View className="w-80 mx-auto space-y-3 mt-8">
           <Text className={styles.getStartedText}>{emailLabel}</Text>
           <TextInput
             className={styles.inputArea}
@@ -95,10 +95,12 @@ const styles = {
   getStartedText: `text-lg leading-6 text-left`,
   helpContainer: `items-center mx-5 mt-4`,
   helpLinkText: `text-center text-gray-600`,
-  inputArea: 'border border-gray-400 rounded-md p-2 mb-2 w-full',
-  buttonLogIn: 'bg-[#0D4A59] rounded-md py-3 w-full',
+
+  inputArea: 'border border-gray-400 rounded-md p-2 w-full',
+  buttonLogIn: 'bg-[#0D4A59] rounded-md py-3 w-full mt-5',
+
   logIn: 'text-center text-white font-bold text-base',
   footerSignUp: 'underline text-base text-purple-700',
   formFooter: 'text-center p-4 text-gray-600 text-base',
-  logo: 'object-scale-down h-40 w-40 mx-auto mb-6',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-20',
 };
