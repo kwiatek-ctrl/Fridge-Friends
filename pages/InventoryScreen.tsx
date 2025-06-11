@@ -28,7 +28,7 @@ export default function InventoryScreen() {
   const [categoryOptions, setCategoryOptions] = useState<string[]>(['All']);
 
   useEffect(() => {
-    const username = 'fridge1234';
+    const username = 'lettuce-eat';
 
     fetchUserPantry(username)
       .then((items) => {
@@ -134,7 +134,7 @@ export default function InventoryScreen() {
         renderItem={({ item }) => (
           <PantryItem
             item={item}
-            username="fridge1234"
+            username="lettuce-eat"
             onOptimisticUpdate={handleItemUpdate}
             onDeleteItem={handleItemDelete}
           />
