@@ -26,7 +26,7 @@ export default function FindFoodScreen({ navigation }) {
     });
 
   return (
-    <View className="flex-1 bg-white relative">
+    <View className="flex-1 bg-white mt-5">
       <BackButton />
 
       <ScrollView className="flex-1 px-6 pt-20">

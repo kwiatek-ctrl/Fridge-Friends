@@ -1,10 +1,12 @@
 import { View, Text } from "react-native";
 import  CreateAccount from "components/CreateAccount";
+import BackButton from "components/BackButton";
+
 
 export default function CreateAccountScreen({onUserAdded}) {
   return (
-    <View className="flex-1 justify-center items-center bg-white">
-      
+    <View className="flex-1 bg-white mt-5">
+      <BackButton />
       <CreateAccount onUserAdded={onUserAdded} />
     </View>
   );

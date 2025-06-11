@@ -84,7 +84,7 @@ export default function InventoryScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white pt-[72px] p-4">
+    <View className="flex-1 bg-white pt-[72px] p-4 mt-5">
       <BackButton />
       <TouchableOpacity
   onPress={() => navigation.navigate('AddItem')}

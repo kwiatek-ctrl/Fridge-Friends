@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View, Alert, Image, ScrollView } from 'react-native';
-import BackButton from './BackButton';
 
 export const EditScreenInfo = ({ path, navigation }: { path: string, navigation: any }) => {
   const emailLabel = 'Email';
@@ -38,7 +37,6 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 
   return (
     <View>
-      <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 

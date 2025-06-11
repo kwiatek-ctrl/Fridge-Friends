@@ -30,7 +30,7 @@ export default function RecipeFilterScreen({ navigation }) {
   }, []);
 
   return (
-    <View className="flex-1 bg-white relative">
+    <View className="flex-1 bg-white mt-5">
       <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
         <Text className="text-2xl font-bold mb-4">Find Recipes</Text>
