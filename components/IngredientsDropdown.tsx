@@ -1,4 +1,4 @@
-import { View, Text, Pressable, FlatList } from 'react-native';
+import { View, Text, Pressable, FlatList, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
@@ -12,6 +12,7 @@ export default function IngredientsDropdown({
   onChange: (newSelected: string[]) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const toggleItem = (name: string) => {
     const newSelected = selected.includes(name)
@@ -20,11 +21,18 @@ export default function IngredientsDropdown({
     onChange(newSelected);
   };
 
+  const filteredIngredients = ingredients.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <View className="mb-4">
       <Text className="text-lg font-semibold mb-1">Ingredients</Text>
       <Pressable
-        onPress={() => setIsOpen(!isOpen)}
+        onPress={() => {
+          setIsOpen(!isOpen);
+          if (isOpen) setSearchTerm('');
+        }}
         className="border rounded p-3 bg-gray-100 flex-row justify-between items-center"
       >
         <Text className="text-gray-600">
@@ -35,8 +43,17 @@ export default function IngredientsDropdown({
 
       {isOpen && (
         <View className="mt-2 border rounded bg-white max-h-60">
+          {/* Search Bar */}
+          <TextInput
+            placeholder="Search ingredients..."
+            value={searchTerm}
+            onChangeText={setSearchTerm}
+            className="px-3 py-2 border-b border-gray-200 text-base"
+          />
+
+          {/* Filtered List */}
           <FlatList
-            data={ingredients}
+            data={filteredIngredients}
             keyExtractor={(item) => item.name}
             renderItem={({ item }) => {
               const isSelected = selected.includes(item.name);
@@ -52,7 +69,9 @@ export default function IngredientsDropdown({
                   >
                     {item.name}
                   </Text>
-                  {isSelected && <Ionicons name="checkmark" size={20} color="#9333ea" />}
+                  {isSelected && (
+                    <Ionicons name="checkmark" size={20} color="#9333ea" />
+                  )}
                 </Pressable>
               );
             }}

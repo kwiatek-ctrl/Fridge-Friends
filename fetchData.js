@@ -145,7 +145,8 @@ export function getRecipies(input) {
       ingredients: input.ingredients,
       allergies: input.allergies.length > 0 ? input.allergies : null,
       dietaryRequirements: input.dietaryRequirements.length > 0 ? input.dietaryRequirements : null,
-      cookTime: input.cookingTime
+      cookTime: input.cookingTime,
+      onlyInventory: input.onlyInventory
     })
     .then((response) => {
       //const parsedRecipies = JSON.parse(response);
