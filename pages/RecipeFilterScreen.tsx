@@ -64,7 +64,7 @@ export default function RecipeFilterScreen({ navigation }) {
         {/* Generate Button */}
               <Pressable
   onPress={() => {
-   getRecipies({ingredients: selectedIngredients, allergies: 'garlic, green food', 
+   getRecipies({ingredients: selectedIngredients, allergies: '', 
     dietaryRequirements: selectedDietaryFilters, 
     cookingTime: selectedCookTimes, onlyInventory: onlyInventoryText })
    .then((response) => {
