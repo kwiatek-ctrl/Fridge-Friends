@@ -31,7 +31,7 @@ export const PasswordReset = () => {
         />
         <Text className="text-red-500 mt-2">{message}</Text>
         <Text
-        className="text-blue-500 mt-4 text-center"
+        className="bg-[#0D4A59] rounded-md py-3 w-full text-white text-center "
         onPress={handlePasswordReset}
         >
         Send Reset Link
