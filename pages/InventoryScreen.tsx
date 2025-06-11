@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { fetchUserPantry } from 'fetchData.js'; 
 import PantryItem from '../components/PantryItem';
 import BackButton from "components/BackButton";
-import DropDownPicker from 'react-native-dropdown-picker';
-import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import CustomSelectDropdown from "../components/CustomSelectDropdown"; // nou
 
 type PantryItem = {
   _id: string;
@@ -22,20 +21,11 @@ const LOCATIONS = ["All", "Fridge", "Freezer", "Cupboard"];
 export default function InventoryScreen() {
   const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [locationOpen, setLocationOpen] = useState(false);
-  const [categoryOpen, setCategoryOpen] = useState(false);
 
-  const navigation = useNavigation();
-
-  const [locationItems, setLocationItems] = useState(
-    LOCATIONS.map((loc) => ({ label: loc, value: loc }))
-  );
-  const [categoryItems, setCategoryItems] = useState<{ label: string, value: string }[]>([
-    { label: "All", value: "All" }
-  ]);
+  const [categoryOptions, setCategoryOptions] = useState<string[]>(["All"]);
 
   useEffect(() => {
     const username = 'fridge1234'; 
@@ -49,10 +39,7 @@ export default function InventoryScreen() {
           new Set(items.map(item => item.category || "Uncategorized"))
         );
 
-        setCategoryItems([
-          { label: "All", value: "All" },
-          ...uniqueCategories.map(cat => ({ label: cat, value: cat }))
-        ]);
+        setCategoryOptions(["All", ...uniqueCategories]);
       })
       .catch((err) => {
         console.error('Error fetching pantry:', err);
@@ -61,8 +48,8 @@ export default function InventoryScreen() {
   }, []);
 
   const filteredItems = pantryItems.filter((item) => {
-    const locationMatch = !selectedLocation || selectedLocation === "All" || item.location === selectedLocation;
-    const categoryMatch = !selectedCategory || selectedCategory === "All" || item.category === selectedCategory;
+    const locationMatch = selectedLocation === "All" || item.location === selectedLocation;
+    const categoryMatch = selectedCategory === "All" || item.category === selectedCategory;
     const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     return locationMatch && categoryMatch && nameMatch;
   });
@@ -113,34 +100,19 @@ export default function InventoryScreen() {
         className="bg-gray-100 p-3 rounded-lg mb-4 text-base"
       />
 
-      {/* Filters */}
-      <View className="z-50 mb-4">
-        <DropDownPicker
-          open={locationOpen}
-          value={selectedLocation}
-          items={locationItems}
-          setOpen={setLocationOpen}
-          setValue={setSelectedLocation}
-          setItems={setLocationItems}
-          placeholder="Select Location"
-          listMode="MODAL"
-          zIndex={3000}
-          zIndexInverse={1000}
-        />
-        <DropDownPicker
-          open={categoryOpen}
-          value={selectedCategory}
-          items={categoryItems}
-          setOpen={setCategoryOpen}
-          setValue={setSelectedCategory}
-          setItems={setCategoryItems}
-          placeholder="Select Category"
-          listMode="MODAL"
-          zIndex={2000}
-          zIndexInverse={2000}
-          style={{ marginTop: 16 }}
-        />
-      </View>
+      {/* Custom Dropdowns */}
+      <CustomSelectDropdown
+        label="Location"
+        options={LOCATIONS}
+        selected={selectedLocation}
+        onSelect={setSelectedLocation}
+      />
+      <CustomSelectDropdown
+        label="Category"
+        options={categoryOptions}
+        selected={selectedCategory}
+        onSelect={setSelectedCategory}
+      />
 
       {/* Pantry List */}
       <FlatList
