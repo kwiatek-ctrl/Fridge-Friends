@@ -118,7 +118,7 @@ export default function UploadToFindFoodScreen() {
       {/* Upload Button */}
       <Pressable
         onPress={() => console.log('Uploading:', selectedItems)}
-        className="bg-purple-600 py-3 rounded-lg mb-4"
+        className="bg-[#0D4A59] py-3 rounded-lg mb-4"
       >
         <Text className="text-white text-center font-bold">Upload Selected</Text>
       </Pressable>
@@ -141,7 +141,7 @@ export default function UploadToFindFoodScreen() {
             <Checkbox
               value={selectedItems.includes(item._id)}
               onValueChange={() => toggleItemSelection(item._id)}
-              color={selectedItems.includes(item._id) ? '#9333ea' : undefined}
+              color={selectedItems.includes(item._id) ? '#0D4A59' : undefined}
             />
           </View>
         )}

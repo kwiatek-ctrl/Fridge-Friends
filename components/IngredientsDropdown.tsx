@@ -64,12 +64,11 @@ export default function IngredientsDropdown({
                 >
                   <Text
                     className={`${
-                      isSelected ? 'font-bold text-purple-600' : 'text-black'
-                    }`}
+                      isSelected ? 'font-bold text-[#0D4A59]' : 'text-black'}`}
                   >
                     {item.name}
                   </Text>
-                  {isSelected && <Ionicons name="checkmark" size={20} color="#9333ea" />}
+                  {isSelected && <Ionicons name="checkmark" size={20} color="#0D4A59" />}
                 </Pressable>
               );
             }}

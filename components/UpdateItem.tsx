@@ -113,7 +113,8 @@ export default function UpdateItem({ username, item, onOptimisticUpdate }: Updat
 
       {/* Submit */}
       <Pressable
-        className={`bg-blue-500 px-4 py-2 rounded ${loading ? 'opacity-50' : ''}`}
+        className={`bg-[#0D4A59] px-4 py-2 rounded ${loading ? 'opacity-50' : ''}`}
+
         onPress={handleUpdate}
         disabled={loading}
       >
