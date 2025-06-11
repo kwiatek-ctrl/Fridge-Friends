@@ -72,7 +72,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 
         {/* Forgot password */}
         <View className={styles.helpContainer}>
-          <Pressable onPress={() => console.log('Forgot Password Pressed')}>
+          <Pressable onPress={() => navigation.navigate('PasswordReset')}>
             <Text className={styles.helpLinkText}>{forgotPassword}</Text>
           </Pressable>
         </View>
@@ -81,7 +81,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
         <View className="items-center mt-4">
           <Pressable onPress={() => navigation.navigate('CreateAccount')}>
             <Text className={styles.formFooter}>
-              Don't have an account?
+              Don't have an account? 
               <Text className={styles.footerSignUp}> Sign up</Text>
             </Text>
           </Pressable>
@@ -95,8 +95,10 @@ const styles = {
   getStartedText: `text-lg leading-6 text-left`,
   helpContainer: `items-center mx-5 mt-4`,
   helpLinkText: `text-center text-gray-600`,
+
   inputArea: 'border border-gray-400 rounded-md p-2 w-full',
   buttonLogIn: 'bg-[#0D4A59] rounded-md py-3 w-full mt-5',
+
   logIn: 'text-center text-white font-bold text-base',
   footerSignUp: 'underline text-base text-purple-700',
   formFooter: 'text-center p-4 text-gray-600 text-base',

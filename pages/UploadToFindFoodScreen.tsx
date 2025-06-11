@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { fetchUserPantry } from 'fetchData.js';
 import PantryItem from '../components/PantryItem';
 import BackButton from '../components/BackButton';
-import DropDownPicker from 'react-native-dropdown-picker';
 import Checkbox from 'expo-checkbox';
+import CustomSelectDropdown from '../components/CustomSelectDropdown'; // nou
 
 type PantryItemType = {
   _id: string;
@@ -24,18 +24,9 @@ export default function UploadToFindFoodScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const [locationOpen, setLocationOpen] = useState(false);
-  const [categoryOpen, setCategoryOpen] = useState(false);
-
-  const [locationItems, setLocationItems] = useState(
-    LOCATIONS.map((loc) => ({ label: loc, value: loc }))
-  );
-  const [categoryItems, setCategoryItems] = useState<{ label: string; value: string }[]>([
-    { label: 'All', value: 'All' }
-  ]);
+  const [selectedLocation, setSelectedLocation] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [categoryOptions, setCategoryOptions] = useState<string[]>(['All']);
 
   useEffect(() => {
     fetchUserPantry('tinned-tomato')
@@ -47,10 +38,7 @@ export default function UploadToFindFoodScreen() {
           new Set(items.map((item) => item.category || 'Uncategorized'))
         );
 
-        setCategoryItems([
-          { label: 'All', value: 'All' },
-          ...uniqueCategories.map((cat) => ({ label: cat, value: cat }))
-        ]);
+        setCategoryOptions(['All', ...uniqueCategories]);
       })
       .catch((err) => {
         console.error('Error fetching pantry:', err);
@@ -66,8 +54,8 @@ export default function UploadToFindFoodScreen() {
 
   const filteredItems = pantryItems.filter((item) => {
     const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const locationMatch = !selectedLocation || selectedLocation === 'All' || item.location === selectedLocation;
-    const categoryMatch = !selectedCategory || selectedCategory === 'All' || item.category === selectedCategory;
+    const locationMatch = selectedLocation === 'All' || item.location === selectedLocation;
+    const categoryMatch = selectedCategory === 'All' || item.category === selectedCategory;
     return nameMatch && locationMatch && categoryMatch;
   });
 
@@ -86,39 +74,24 @@ export default function UploadToFindFoodScreen() {
         className="border border-gray-300 rounded-lg px-4 py-2 mb-4 bg-gray-100 text-base"
       />
 
-      {/* Dropdown filters */}
-      <View className="z-50 mb-4">
-        <DropDownPicker
-          open={locationOpen}
-          value={selectedLocation}
-          items={locationItems}
-          setOpen={setLocationOpen}
-          setValue={setSelectedLocation}
-          setItems={setLocationItems}
-          placeholder="Select Location"
-          listMode="MODAL"
-          zIndex={3000}
-          zIndexInverse={1000}
-        />
-        <DropDownPicker
-          open={categoryOpen}
-          value={selectedCategory}
-          items={categoryItems}
-          setOpen={setCategoryOpen}
-          setValue={setSelectedCategory}
-          setItems={setCategoryItems}
-          placeholder="Select Category"
-          listMode="MODAL"
-          zIndex={2000}
-          zIndexInverse={2000}
-          style={{ marginTop: 16 }}
-        />
-      </View>
+      {/* Custom Dropdown filters */}
+      <CustomSelectDropdown
+        label="Location"
+        options={LOCATIONS}
+        selected={selectedLocation}
+        onSelect={setSelectedLocation}
+      />
+      <CustomSelectDropdown
+        label="Category"
+        options={categoryOptions}
+        selected={selectedCategory}
+        onSelect={setSelectedCategory}
+      />
 
       {/* Upload Button */}
       <Pressable
         onPress={() => console.log('Uploading:', selectedItems)}
-        className="bg-purple-600 py-3 rounded-lg mb-4"
+        className="bg-[#0D4A59] py-3 rounded-lg mb-4"
       >
         <Text className="text-white text-center font-bold">Upload Selected</Text>
       </Pressable>
@@ -135,13 +108,13 @@ export default function UploadToFindFoodScreen() {
                 {item.quantity} {item.unit} • {item.location}
               </Text>
               <Text className="text-gray-500 text-sm">
-  Expires: {item.expiryDate.slice(0, 10)}
-</Text>
+                Expires: {item.expiryDate.slice(0, 10)}
+              </Text>
             </View>
             <Checkbox
               value={selectedItems.includes(item._id)}
               onValueChange={() => toggleItemSelection(item._id)}
-              color={selectedItems.includes(item._id) ? '#9333ea' : undefined}
+              color={selectedItems.includes(item._id) ? '#0D4A59' : undefined}
             />
           </View>
         )}

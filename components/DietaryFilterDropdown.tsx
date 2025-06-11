@@ -1,6 +1,6 @@
 import { View, Text, Pressable, FlatList } from 'react-native';
-import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const dietaryOptions = [
   'Vegetarian',
@@ -8,17 +8,22 @@ const dietaryOptions = [
   'Gluten free',
   'Dairy free',
   'Nut free',
-  
 ];
 
-export default function DietaryFilterDropdown() {
+export default function DietaryFilterDropdown({
+  selected = [],
+  onSelect = () => {},
+}: {
+  selected?: string[];
+  onSelect?: (newSelected: string[]) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
 
   const toggleItem = (name: string) => {
-    setSelected((prev) =>
-      prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name]
-    );
+    const newSelected = selected.includes(name)
+      ? selected.filter((i) => i !== name)
+      : [...selected, name];
+    onSelect(newSelected);
   };
 
   return (
@@ -47,13 +52,15 @@ export default function DietaryFilterDropdown() {
                   className="px-4 py-2 border-b border-gray-200 flex-row justify-between items-center"
                 >
                   <Text
-                    className={`${
-                      isSelected ? 'font-bold text-purple-600' : 'text-black'
-                    }`}
+                   className={`${
+               isSelected ? 'font-bold text-[#0D4A59]' : 'text-black'
+              }`}
+                 >
+
                   >
                     {item}
                   </Text>
-                  {isSelected && <Ionicons name="checkmark" size={20} color="#9333ea" />}
+                  {isSelected && <Ionicons name="checkmark" size={20} color="#0D4A59" />}
                 </Pressable>
               );
             }}

@@ -6,30 +6,30 @@ export default function CookTimeDropdown({
   selected,
   onSelect,
 }: {
-  selected: string[];
+  selected: string;
   onSelect: (value: string) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const options = ['< 15 Minutes', '<30 Minutes', '< 1 hr', "I've got all day"];
 
-  
-  useEffect(() => {
-    if (selected.length === 0 && onSelect) {
-      onSelect('< 1 hr');
-    }
-  }, []);
+
 
   return (
     <View className="mb-4">
       <Text className="text-lg font-semibold mb-1">Cook Time</Text>
+
       <Pressable
         onPress={() => setIsOpen(!isOpen)}
         className="border rounded p-3 bg-gray-100 flex-row justify-between items-center"
       >
         <Text className="text-gray-600">
-          {selected.length > 0 ? selected.join(', ') : 'Select cook time'}
+          {selected || 'Select cook time'}
         </Text>
-        <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={20} color="gray" />
+        <Ionicons
+          name={isOpen ? 'chevron-up' : 'chevron-down'}
+          size={20}
+          color="gray"
+        />
       </Pressable>
 
       {isOpen && (
@@ -38,20 +38,27 @@ export default function CookTimeDropdown({
             data={options}
             keyExtractor={(item) => item}
             renderItem={({ item }) => {
-              const isSelected = selected.includes(item);
+              const isSelected = selected === item;
               return (
                 <Pressable
-                  onPress={() => onSelect(item)}
+                  onPress={() => {
+                    onSelect(item);
+                    setIsOpen(false);
+                  }}
                   className="px-4 py-2 border-b border-gray-200 flex-row justify-between items-center"
                 >
                   <Text
                     className={`${
-                      isSelected ? 'font-bold text-purple-600' : 'text-black'
+                      isSelected
+                        ? 'font-bold text-purple-600'
+                        : 'text-black'
                     }`}
                   >
                     {item}
                   </Text>
-                  {isSelected && <Ionicons name="checkmark" size={20} color="#9333ea" />}
+                  {isSelected && (
+                    <Ionicons name="checkmark" size={20} color="#9333ea" />
+                  )}
                 </Pressable>
               );
             }}

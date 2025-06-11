@@ -1,13 +1,16 @@
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useState } from 'react';
 import BackButton from '../components/BackButton';
-import recipesData from '../practice-recipes';
+//import recipesData from '../practice-recipes';
+import { useRoute } from '@react-navigation/native';
 
 export default function RecipeResultScreen() {
   const [unitSystem, setUnitSystem] = useState<'metric' | 'imperial'>('metric');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const route = useRoute();
+  const recipes =route.params?.recipes || [];
 
-  const recipes = recipesData.recipes;
+ // const recipes = recipesData.recipes;
   const current = recipes[currentIndex];
 
   const toggleUnit = () => {
@@ -29,7 +32,7 @@ export default function RecipeResultScreen() {
               key={label}
               onPress={() => setCurrentIndex(index)}
               className={`px-4 py-2 rounded-full ${
-                currentIndex === index ? 'bg-purple-600' : 'bg-gray-300'
+                currentIndex === index ? 'bg-[#0D4A59]' : 'bg-gray-300'
               }`}
             >
               <Text className="text-white font-bold">{label}</Text>
@@ -39,15 +42,17 @@ export default function RecipeResultScreen() {
 
         {/* Title */}
         <Text className="text-xl font-bold mb-4">{current.title}</Text>
+        {/* Time */}
+          <Text className="text-base font-medium mb-4">Cooking time: {current.cookingTime}</Text>
 
         {/* Ingredients header and toggle */}
         <View className="flex-row justify-between items-center mb-2">
           <Text className="text-xl font-semibold">Ingredients</Text>
           <Pressable
             onPress={toggleUnit}
-            className="border border-purple-600 px-3 py-1 rounded"
+            className="border border-bg-[#0D4A59] px-3 py-1 rounded"
           >
-            <Text className="text-purple-600 font-semibold text-sm">
+            <Text className="text-bg-[#0D4A59] font-semibold text-sm">
               Switch to {unitSystem === 'metric' ? 'Imperial' : 'Metric'}
             </Text>
           </Pressable>

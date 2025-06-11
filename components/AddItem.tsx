@@ -9,11 +9,11 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { addItemToPantry } from '../fetchData';
+import CustomSelectDropdown from './CustomSelectDropdown'; // asigură-te că path-ul e corect
 
-const units = ['g', 'kg', 'ml', 'l', 'pcs'];
+const units = ['g', 'kg', 'ml', 'l', 'pcs', 'oz', 'lb', 'fl. oz', 'pints'];
 const categories = [
   'Dairy, Eggs',
   'Meat, Fish, Seafood',
@@ -58,17 +58,10 @@ export default function AddItem() {
       expiryDate: expiryDate.toISOString(),
     };
 
-    console.log('Submitting item:', JSON.stringify(item, null, 2));
-
     try {
       const username = 'fridge1234'; // Replace later with dynamic user
-      console.log('Submitting item:', JSON.stringify(item, null, 2));
-      console.log('Type of quantity:', typeof parsedQuantity);
-
       await addItemToPantry(username, item);
       Alert.alert('Success', 'Item successfully added to pantry!');
-
-      // Reset form
       setName('');
       setQuantity('');
       setUnit(units[0]);
@@ -77,10 +70,8 @@ export default function AddItem() {
       setExpiryDate(new Date());
     } catch (error) {
       if (error.response) {
-        console.error('Error adding item:', JSON.stringify(error.response.data, null, 2));
         Alert.alert('Server Error', JSON.stringify(error.response.data));
       } else {
-        console.error('Unexpected error:', error.message);
         Alert.alert('Error', 'An unexpected error occurred.');
       }
     }
@@ -106,19 +97,13 @@ export default function AddItem() {
           placeholder="e.g. 2"
         />
 
-        <Text style={styles.label}>Unit</Text>
-        <Picker selectedValue={unit} onValueChange={setUnit} style={styles.picker}>
-          {units.map((u) => (
-            <Picker.Item key={u} label={u} value={u} />
-          ))}
-        </Picker>
-
-        <Text style={styles.label}>Category</Text>
-        <Picker selectedValue={category} onValueChange={setCategory} style={styles.picker}>
-          {categories.map((c) => (
-            <Picker.Item key={c} label={c} value={c} />
-          ))}
-        </Picker>
+        <CustomSelectDropdown label="Unit" options={units} selected={unit} onSelect={setUnit} />
+        <CustomSelectDropdown
+          label="Category"
+          options={categories}
+          selected={category}
+          onSelect={setCategory}
+        />
 
         <Text style={styles.label}>Location</Text>
         <View style={styles.radioGroup}>
@@ -126,7 +111,8 @@ export default function AddItem() {
             <Pressable
               key={loc}
               style={[styles.radioButton, location === loc && styles.radioSelected]}
-              onPress={() => setLocation(loc)}>
+              onPress={() => setLocation(loc)}
+            >
               <Text style={location === loc ? styles.radioTextSelected : styles.radioText}>
                 {loc}
               </Text>
@@ -162,13 +148,15 @@ export default function AddItem() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
+    paddingVertical: 10,
     backgroundColor: '#fff',
   },
   formWrapper: {
-    width: 320,
+    paddingHorizontal: 12,
+    width: '100%',
+    maxWidth: 400,
     alignSelf: 'center',
-    gap: 16,
+    gap: 10,
   },
   label: {
     fontWeight: 'bold',
@@ -178,31 +166,26 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#d1d5db',
-    padding: 10,
-    borderRadius: 8,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderRadius: 6,
     backgroundColor: 'white',
-    width: '100%',
-  },
-  picker: {
-    backgroundColor: 'white',
-    borderRadius: 8,
     width: '100%',
   },
   radioGroup: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: 6,
     marginTop: 4,
   },
   radioButton: {
-  paddingHorizontal: 14,
-  paddingVertical: 10,
-  borderWidth: 1,
-  borderRadius: 20,
-  borderColor: '#ccc',
-  backgroundColor: '#fff',
-},
-
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderRadius: 16,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+  },
   radioSelected: {
     backgroundColor: '#0D4A59',
     borderColor: '#7e22ce',
@@ -212,10 +195,10 @@ const styles = StyleSheet.create({
   },
   radioTextSelected: {
     color: 'white',
-     fontWeight: 'bold',
+    fontWeight: 'bold',
   },
   dateButton: {
-    padding: 10,
+    padding: 8,
     borderWidth: 1,
     borderRadius: 6,
     borderColor: '#ccc',
@@ -224,10 +207,10 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: '#0D4A59',
-    paddingVertical: 12,
-    borderRadius: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 12,
     width: '100%',
   },
   submitText: {
