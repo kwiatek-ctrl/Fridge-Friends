@@ -1,23 +1,21 @@
 import { useState } from 'react'
 import { Text, TextInput, View, Image } from 'react-native'
 import BackButton from './BackButton'
-import { useNavigation } from '@react-navigation/native'
 import { resetPassword } from '../fetchData'
 
 export const PasswordReset = () => {
-    const navigation = useNavigation()
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     const handlePasswordReset = async () => {
     try {
-        await resetPassword(email)
+        await resetPassword(emailRegex.test(email))
         setMessage('Password reset link sent to your email.')
     } catch (error) {
         setMessage('Error sending password reset link. Please try again.')
     }
     }
-
     return (
     <View className="flex-1 px-6 pt-20">
         <BackButton />

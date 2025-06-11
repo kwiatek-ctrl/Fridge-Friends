@@ -158,5 +158,15 @@ export function getRecipies(input) {
     });
 }
 
-export function resetPassword(){
+export function resetPassword(email){
+  return apiClient
+    .post('/users/reset-password', {
+      emailAddress: email,
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
 }
