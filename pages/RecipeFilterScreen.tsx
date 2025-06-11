@@ -7,6 +7,7 @@ import DietaryFilterDropdown from '../components/DietaryFilterDropdown';
 import { fetchUserPantry, getRecipies } from '../fetchData';
 
 export default function RecipeFilterScreen({ navigation }) {
+  const [onlyInventoryText, setOnlyInventoryText] = useState('Using these available ingredients');
   const [inventoryOnly, setInventoryOnly] = useState(true);
   const [pantryItems, setPantryItems] = useState([]);
   const [selectedCookTimes, setSelectedCookTimes] = useState('< 1 hr');
@@ -53,32 +54,33 @@ export default function RecipeFilterScreen({ navigation }) {
         {/* Inventory Only Toggle */}
         <View className="items-center mb-6">
           <Text className="text-lg font-semibold mb-2">Inventory only</Text>
-          <Switch value={inventoryOnly} onValueChange={setInventoryOnly} />
+          <Switch value={inventoryOnly} onValueChange={(val) => {
+            setInventoryOnly(val);
+            if (val) { setOnlyInventoryText('Using these available ingredients')}
+            else { setOnlyInventoryText('Using these available ingredients and optionally others - mark extra ingredients with (extra) in the ingredients list')}
+          }} />
         </View>
 
         {/* Generate Button */}
-        <Pressable
-          onPress={() => navigation.navigate('RecipeResult')}
-          className="bg-[#0D4A59] py-3 rounded-lg mb-10"
-        >
-          <Text className="text-white text-center text-lg font-bold">Generate</Text>
-        </Pressable>
-
-{/* Practice Generate Button */}
-       <Pressable
+              <Pressable
   onPress={() => {
-   getRecipies({ingredients: selectedIngredients, allergies: '', dietaryRequirements: selectedDietaryFilters, cookingTime: selectedCookTimes })
+   getRecipies({ingredients: selectedIngredients, allergies: 'garlic, green food', 
+    dietaryRequirements: selectedDietaryFilters, 
+    cookingTime: selectedCookTimes, onlyInventory: onlyInventoryText })
    .then((response) => {
     console.log(response);
     navigation.navigate('RecipeResult', {recipes: response.recipes})
    })
 
-    //
+    
   }}
-  className="bg-green-600 py-3 rounded-lg mb-10"
+  className="bg-[#0D4A59] py-3 rounded-lg mb-10"
 >
-  <Text className="text-white text-center text-lg font-bold">Practice Generate</Text>
+  <Text className="text-white text-center text-lg font-bold">Generate</Text>
 </Pressable>
+
+
+
       </ScrollView>
     </View>
   );
