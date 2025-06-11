@@ -4,7 +4,7 @@ import { addUser } from 'fetchData';
 import BackButton from './BackButton';
 import { useNavigation } from '@react-navigation/native';
 
-export default function CreateAccount({onUserAdded}) {
+export default function CreateAccount() {
   const [user, setUser] = useState({
     username: '',
     name: '',

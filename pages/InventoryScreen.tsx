@@ -1,10 +1,10 @@
-import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
-import { fetchUserPantry } from 'fetchData.js'; 
+import { fetchUserPantry } from 'fetchData.js';
 import PantryItem from '../components/PantryItem';
-import BackButton from "components/BackButton";
+import BackButton from 'components/BackButton';
 import { Ionicons } from '@expo/vector-icons';
-import CustomSelectDropdown from "../components/CustomSelectDropdown"; // nou
+import CustomSelectDropdown from '../components/CustomSelectDropdown'; // nou
 
 type PantryItem = {
   _id: string;
@@ -16,30 +16,38 @@ type PantryItem = {
   expiryDate: string;
 };
 
-const LOCATIONS = ["All", "Fridge", "Freezer", "Cupboard"];
+const LOCATIONS = ['All', 'Fridge', 'Freezer', 'Cupboard'];
 
 export default function InventoryScreen() {
   const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedLocation, setSelectedLocation] = useState<string>("All");
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedLocation, setSelectedLocation] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const [categoryOptions, setCategoryOptions] = useState<string[]>(["All"]);
+  const [categoryOptions, setCategoryOptions] = useState<string[]>(['All']);
 
   useEffect(() => {
-    const username = 'fridge1234'; 
+    const username = 'fridge1234';
 
     fetchUserPantry(username)
       .then((items) => {
         setPantryItems(items);
         setIsLoading(false);
 
-        const uniqueCategories = Array.from(
-          new Set(items.map(item => item.category || "Uncategorized"))
-        );
+        const uniqueCategories = [
+          'Dairy, Eggs',
+          'Meat, Fish, Seafood',
+          'Fruit, Veg',
+          'Snacks, Sweets',
+          'Drinks',
+          'Herbs, Spices, Condiments',
+          'Bread, Bakery',
+          'Tins, Jars',
+          'Other',
+        ];
 
-        setCategoryOptions(["All", ...uniqueCategories]);
+        setCategoryOptions(['All', ...uniqueCategories]);
       })
       .catch((err) => {
         console.error('Error fetching pantry:', err);
@@ -48,15 +56,20 @@ export default function InventoryScreen() {
   }, []);
 
   const filteredItems = pantryItems.filter((item) => {
-    const locationMatch = selectedLocation === "All" || item.location === selectedLocation;
-    const categoryMatch = selectedCategory === "All" || item.category === selectedCategory;
+    let camelCaseCategory = '';
+    const lowercase = selectedCategory.toLowerCase();
+    camelCaseCategory += lowercase
+      .split(', ')
+      .reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
+    const locationMatch = selectedLocation === 'All' || item.location === selectedLocation.toLowerCase();
+    const categoryMatch = selectedCategory === 'All' || item.category === camelCaseCategory;
     const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     return locationMatch && categoryMatch && nameMatch;
   });
 
   if (isLoading) {
     return (
-      <View className="flex-1 justify-center items-center bg-white">
+      <View className="flex-1 items-center justify-center bg-white">
         <Text>Loading...</Text>
       </View>
     );
@@ -64,18 +77,16 @@ export default function InventoryScreen() {
 
   const handleItemUpdate = (updatedItem: PantryItem) => {
     setPantryItems((prevItems) =>
-      prevItems.map((item) =>
-        item._id === updatedItem._id ? updatedItem : item
-      )
+      prevItems.map((item) => (item._id === updatedItem._id ? updatedItem : item))
     );
   };
 
   const handleItemDelete = (deletedId: string) => {
-    setPantryItems(prev => prev.filter(item => item._id !== deletedId));
+    setPantryItems((prev) => prev.filter((item) => item._id !== deletedId));
   };
 
   return (
-    <View className="flex-1 bg-white pt-[72px] p-4">
+    <View className="flex-1 bg-white p-4 pt-[72px]">
       <BackButton />
 
       <TouchableOpacity
@@ -85,19 +96,18 @@ export default function InventoryScreen() {
           top: 40,
           right: 16,
           zIndex: 100,
-        }}
-      >
+        }}>
         <Ionicons name="add" size={32} color="black" />
       </TouchableOpacity>
 
-      <Text className="text-2xl font-bold mb-4 text-center">My Food</Text>
+      <Text className="mb-4 text-center text-2xl font-bold">My Food</Text>
 
       {/* Search Input */}
       <TextInput
         placeholder="Search ingredients..."
         value={searchTerm}
         onChangeText={setSearchTerm}
-        className="bg-gray-100 p-3 rounded-lg mb-4 text-base"
+        className="mb-4 rounded-lg bg-gray-100 p-3 text-base"
       />
 
       {/* Custom Dropdowns */}
