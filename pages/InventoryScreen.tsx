@@ -110,13 +110,16 @@ export default function InventoryScreen() {
         className="mb-4 rounded-lg bg-gray-100 p-3 text-base"
       />
 
-      {/* Custom Dropdowns */}
       <CustomSelectDropdown
         label="Location"
         options={LOCATIONS}
         selected={selectedLocation}
-        onSelect={setSelectedLocation}
+        onSelect={(value) => {
+        setSelectedLocation(value === 'All' ? 'All' : value);
+        }}
       />
+
+
       <CustomSelectDropdown
         label="Category"
         options={categoryOptions}

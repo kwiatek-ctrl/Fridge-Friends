@@ -32,19 +32,23 @@ export default function CustomSelectDropdown({
       {isOpen && (
         <View className="mt-2 border rounded bg-white">
           {options.map((item) => (
-            <Pressable
-              key={item}
-              onPress={() => {
-                onSelect(item);
-                setIsOpen(false);
-              }}
-              className="px-4 py-2 border-b border-gray-200"
-            >
-              <Text className={item === selected ? 'text-[#0D4A59] font-bold' : 'text-black'}>
-                {item}
-              </Text>
-            </Pressable>
-          ))}
+  <Pressable
+    key={item}
+    onPress={() => {
+      onSelect(item);
+      setIsOpen(false);
+    }}
+    className="px-4 py-2 border-b border-gray-200"
+  >
+    <View className="flex-row justify-between items-center">
+      <Text className={item === selected ? 'text-[#0D4A59] font-bold' : 'text-black'}>
+        {item}
+      </Text>
+      {item === selected && <Ionicons name="checkmark" size={20} color="#0D4A59" />}
+    </View>
+  </Pressable>
+))}
+
         </View>
       )}
     </View>

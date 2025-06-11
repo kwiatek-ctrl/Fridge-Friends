@@ -1,61 +1,48 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { patchItemInPantry } from '../fetchData'; 
-import DropDownPicker from 'react-native-dropdown-picker';
-
+import CustomSelectDropdown from './CustomSelectDropdown';
 
 type UpdateItemProps = {
-    username: string;
-    item: {
-      _id: string;
-      name: string;
-      quantity: number;
-      unit: string;
-      location: string;
-      expiryDate: string;
-    };
-    onOptimisticUpdate: (updatedItem: {
-      _id: string;
-      name: string;
-      quantity: number;
-      unit: string;
-      location: string;
-      expiryDate: string;
-    }) => void;
+  username: string;
+  item: {
+    _id: string;
+    name: string;
+    quantity: number;
+    unit: string;
+    location: string;
+    expiryDate: string;
   };
-
+  onOptimisticUpdate: (updatedItem: {
+    _id: string;
+    name: string;
+    quantity: number;
+    unit: string;
+    location: string;
+    expiryDate: string;
+  }) => void;
+};
 
 export default function UpdateItem({ username, item, onOptimisticUpdate }: UpdateItemProps) {
   const [quantity, setQuantity] = useState(String(item.quantity));
   const [unit, setUnit] = useState(item.unit);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
   const [location, setLocation] = useState(item.location);
-  const [items, setItems] = useState([
-  { label: 'Fridge', value: 'Fridge' },
-  { label: 'Freezer', value: 'Freezer' },
-  { label: 'Cupboard', value: 'Cupboard' },
-]);
 
   const handleUpdate = () => {
     setLoading(true);
     const updatedItem = {
-        ...item,
-        quantity: Number(quantity),
-        unit,
-        location,
-      };
-
-      if (onOptimisticUpdate) {
-        onOptimisticUpdate(updatedItem);
-      }
-
-    patchItemInPantry(username, item._id, {
       ...item,
       quantity: Number(quantity),
       unit,
-      location
-    })
+      location,
+    };
+
+    if (onOptimisticUpdate) {
+      onOptimisticUpdate(updatedItem);
+    }
+
+    patchItemInPantry(username, item._id, updatedItem)
       .then(() => {
         Alert.alert('Success', 'Item updated successfully!');
         setLoading(false);
@@ -93,20 +80,14 @@ export default function UpdateItem({ username, item, onOptimisticUpdate }: Updat
       </View>
 
       {/* Location */}
-      <View className="flex-row items-center z-50">
+      <View className="flex-row items-center">
         <Text className="w-24">Location:</Text>
         <View className="flex-1">
-          <DropDownPicker
-            open={open}
-            value={location}
-            items={items}
-            setOpen={setOpen}
-            setValue={setLocation}
-            setItems={setItems}
-            placeholder="Select location"
-            listMode="MODAL"
-            zIndex={3000}
-            zIndexInverse={1000}
+          <CustomSelectDropdown
+            label=""
+            options={['Fridge', 'Freezer', 'Cupboard']}
+            selected={location}
+            onSelect={setLocation}
           />
         </View>
       </View>
@@ -114,7 +95,6 @@ export default function UpdateItem({ username, item, onOptimisticUpdate }: Updat
       {/* Submit */}
       <Pressable
         className={`bg-[#0D4A59] px-4 py-2 rounded ${loading ? 'opacity-50' : ''}`}
-
         onPress={handleUpdate}
         disabled={loading}
       >

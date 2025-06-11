@@ -57,7 +57,6 @@ export default function DietaryFilterDropdown({
               }`}
                  >
 
-                  >
                     {item}
                   </Text>
                   {isSelected && <Ionicons name="checkmark" size={20} color="#0D4A59" />}
