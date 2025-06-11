@@ -1,11 +1,10 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TextInput, TouchableOpacity } from "react-native";
 import { useEffect, useState } from 'react';
 import { fetchUserPantry } from 'fetchData.js'; 
 import PantryItem from '../components/PantryItem';
 import BackButton from "components/BackButton";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 type PantryItem = {
@@ -22,12 +21,14 @@ const LOCATIONS = ["All", "Fridge", "Freezer", "Cupboard"];
 
 export default function InventoryScreen() {
   const [pantryItems, setPantryItems] = useState<PantryItem[]>([]);
-  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [locationOpen, setLocationOpen] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
+
+  const navigation = useNavigation();
 
   const [locationItems, setLocationItems] = useState(
     LOCATIONS.map((loc) => ({ label: loc, value: loc }))
@@ -35,8 +36,6 @@ export default function InventoryScreen() {
   const [categoryItems, setCategoryItems] = useState<{ label: string, value: string }[]>([
     { label: "All", value: "All" }
   ]);
-
-  
 
   useEffect(() => {
     const username = 'fridge1234'; 
@@ -64,11 +63,16 @@ export default function InventoryScreen() {
   const filteredItems = pantryItems.filter((item) => {
     const locationMatch = !selectedLocation || selectedLocation === "All" || item.location === selectedLocation;
     const categoryMatch = !selectedCategory || selectedCategory === "All" || item.category === selectedCategory;
-    return locationMatch && categoryMatch;
+    const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return locationMatch && categoryMatch && nameMatch;
   });
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
   const handleItemUpdate = (updatedItem: PantryItem) => {
@@ -86,19 +90,30 @@ export default function InventoryScreen() {
   return (
     <View className="flex-1 bg-white pt-[72px] p-4">
       <BackButton />
+
       <TouchableOpacity
-  onPress={() => navigation.navigate('AddItem')}
-  style={{
-    position: 'absolute',
-    top: 40,
-    right: 16,
-    zIndex: 100,
-  }}
->
-  <Ionicons name="add" size={32} color="black" />
-</TouchableOpacity>
+        onPress={() => navigation.navigate('AddItem')}
+        style={{
+          position: 'absolute',
+          top: 40,
+          right: 16,
+          zIndex: 100,
+        }}
+      >
+        <Ionicons name="add" size={32} color="black" />
+      </TouchableOpacity>
+
       <Text className="text-2xl font-bold mb-4 text-center">My Food</Text>
 
+      {/* Search Input */}
+      <TextInput
+        placeholder="Search ingredients..."
+        value={searchTerm}
+        onChangeText={setSearchTerm}
+        className="bg-gray-100 p-3 rounded-lg mb-4 text-base"
+      />
+
+      {/* Filters */}
       <View className="z-50 mb-4">
         <DropDownPicker
           open={locationOpen}
@@ -127,6 +142,7 @@ export default function InventoryScreen() {
         />
       </View>
 
+      {/* Pantry List */}
       <FlatList
         data={filteredItems}
         keyExtractor={(item) => item._id}
