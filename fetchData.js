@@ -156,3 +156,6 @@ export function getRecipies(input) {
       return Promise.reject(err);
     });
 }
+
+export function resetPassword(){
+}

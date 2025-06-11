@@ -15,6 +15,7 @@ import './global.css';
 import { UserProvider } from 'contexts/UserContext';
 import CreateAccountScreen from 'pages/CreateAccountScreen';
 import EditProfile from 'pages/EditProfile';
+import PasswordResetScreen from 'pages/PasswordResetScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
            <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="FindFood" component={FindFoodScreen} />
           <Stack.Screen name="UploadToFindFood" component={UploadToFindFoodScreen} />
+          <Stack.Screen name="PasswordReset" component={PasswordResetScreen}/>
         </Stack.Navigator>
       <StatusBar style="auto" />
       </UserProvider>
