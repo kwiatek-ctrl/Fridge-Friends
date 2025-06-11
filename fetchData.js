@@ -84,7 +84,6 @@ export function addItemToPantry(username, item) {
   camelCaseCategory += lowercase
     .split(', ')
     .reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
-    console.log(camelCaseCategory)
   return apiClient
     .post(`/users/${username}/pantry`, {
       name: item.name,
