@@ -7,7 +7,8 @@ export default function AddItemScreen() {
     <View className="flex-1 bg-white">
       <BackButton />
       <ScrollView className="px-6 pt-20">
-        <Text className="text-2xl font-semibold text-gray-800 mb-4">Add Items</Text>
+         <Text className="text-2xl font-bold mb-4 text-center">Add Item</Text>
+
         <AddItem />
       </ScrollView>
     </View>
