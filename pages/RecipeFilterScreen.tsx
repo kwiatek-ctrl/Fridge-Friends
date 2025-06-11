@@ -1,10 +1,11 @@
-import { View, Text, Switch, Pressable, ScrollView } from 'react-native';
+import { View, Text, Switch, Pressable, ScrollView, Image, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import BackButton from '../components/BackButton';
 import IngredientsDropdown from '../components/IngredientsDropdown';
 import CookTimeDropdown from '../components/CookTimeDropdown';
 import DietaryFilterDropdown from '../components/DietaryFilterDropdown';
-import { fetchUserPantry, getRecipies } from '../fetchData';
+import { fetchUserPantry, getRecipes } from '../fetchData';
+
 
 export default function RecipeFilterScreen({ navigation }) {
   const [onlyInventoryText, setOnlyInventoryText] = useState('Using these available ingredients');
@@ -14,6 +15,7 @@ export default function RecipeFilterScreen({ navigation }) {
   const [selectedDietaryFilters, setSelectedDietaryFilters] = useState<string[]>([]);
 
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -29,11 +31,21 @@ export default function RecipeFilterScreen({ navigation }) {
     getIngredients();
   }, []);
 
+if (loading) {
+  return (<View className="flex-1 justify-center items-center bg-white">
+    <Image source={require('../assets/loading2.gif')}
+  style={{width:560, height:560}}
+  resizeMode="contain"/>
+  </View>)}
+  
+
   return (
     <View className="flex-1 bg-white mt-5">
       <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
-        <Text className="text-2xl font-bold mb-4">Find Recipes</Text>
+        <Text className="text-2xl font-bold text-center mb-4">Find Recipes</Text>
+
+        
 
         {/* Ingredients Dropdown */}
         <IngredientsDropdown
@@ -63,14 +75,14 @@ export default function RecipeFilterScreen({ navigation }) {
 
         {/* Generate Button */}
               <Pressable
-  onPress={() => {
-   getRecipies({ingredients: selectedIngredients, allergies: '', 
+  onPress={() => {(async () => {setLoading(true); try {const response = await 
+   getRecipes({ingredients: selectedIngredients, allergies: '', 
     dietaryRequirements: selectedDietaryFilters, 
     cookingTime: selectedCookTimes, onlyInventory: onlyInventoryText })
-   .then((response) => {
-    console.log(response);
+   
+    
     navigation.navigate('RecipeResult', {recipes: response.recipes})
-   })
+   }finally {setLoading(false)}})();
 
     
   }}

@@ -1,26 +1,20 @@
-
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import BackButton from 'components/BackButton';
 import { useNavigation } from '@react-navigation/native';
-
-
-
-
+import { useEffect, useState } from 'react';
+import { fetchUserByUsername } from 'fetchData';
+import HomeButton from 'components/HomeButton';
 
 export default function UserScreen() {
-  const loggedInUser = {
-    allergies: 'pinuts',
-    dateAdded: '2025-06-06T09:49:46.402Z',
-    dietaryRequirements: 'biscuit',
-    emailAddress: 'biscuit@gmail.com',
-    householdID: null,
-    name: 'Jason',
-    pantry: [],
-    profilePicURL: '',
-    username: 'Biscuit',
-    __v: 0,
-    _id: '6842b9ba3572c18e80b05a1c',
-  };
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    const username = 'lettuce-eat';
+    fetchUserByUsername(username).then((user) => {
+      setLoggedInUser(user);
+    });
+  });
+
   const navigation = useNavigation<any>();
 
   const handleLogOut = () => {
@@ -30,23 +24,18 @@ export default function UserScreen() {
     navigation.navigate('EditProfile', { userData: loggedInUser });
   };
 
-
-
-
   return (
     <ScrollView className="flex-1 bg-white">
       <View className="min-h-screen flex-1 items-center justify-center px-4 py-8">
         <View className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
           <BackButton />
-
+          <HomeButton />
           <View className="mb-6 items-center">
             <Image className={styles.appleLogo} source={require('../assets/apple-logo.png')} />
           </View>
           <View className="relative">
             <TouchableOpacity
-
-              className="absolute right-0 top-0 z-10 rounded-full bg-[#0D4A59] p-2"
-
+              className="absolute right-0 top-0 z-10 h-10 w-10 items-center justify-center rounded-full bg-[#0D4A59]"
               onPress={handleEditprofile}>
               <Text className="text-xs font-bold text-white">Edit</Text>
             </TouchableOpacity>
@@ -54,7 +43,7 @@ export default function UserScreen() {
 
           {/* Username */}
 
-          <Text className="mb-2 text-center text-3xl font-extrabold text-blue-700">
+          <Text className="mb-2 text-center text-3xl font-extrabold ">
             Hello, {loggedInUser.username}!
           </Text>
 
@@ -72,22 +61,26 @@ export default function UserScreen() {
               <Text className="flex-1 text-gray-800">{loggedInUser.allergies || '-'}</Text>
             </View>
             <View className="mb-2 flex-row items-center">
-              <Text className="w-32 font-semibold text-gray-500">Dietary:</Text>
+              <Text className="w-32 font-semibold text-gray-500">Diet:</Text>
               <Text className="flex-1 text-gray-800">
                 {loggedInUser.dietaryRequirements || '-'}
               </Text>
             </View>
             <View className="mb-2 flex-row items-center">
-              <Text className="w-32 font-semibold text-gray-500">Date Added:</Text>
+              <Text className="w-32 font-semibold text-gray-500">Date Joined:</Text>
               <Text className="flex-1 text-gray-800">
                 {new Date(loggedInUser.dateAdded).toLocaleDateString()}
               </Text>
             </View>
 
+            <View className="mb-2 flex-row items-center">
+              <Text className="w-32 font-semibold text-gray-500">Household ID:</Text>
+              <Text className="flex-1 text-gray-800">{loggedInUser.householdID || '-'}</Text>
+            </View>
+
             <TouchableOpacity
               className="ml-0 mt-2 w-auto rounded bg-[#0D4A59] px-2 py-0.5"
               onPress={handleLogOut}>
-
               <Text className="text-center text-xs font-bold text-white">Log out</Text>
             </TouchableOpacity>
           </View>

@@ -30,7 +30,9 @@ export default function FindFoodScreen({ navigation }) {
       <BackButton />
 
       <ScrollView className="flex-1 px-6 pt-20">
-        <Text className="text-2xl font-bold mb-4">Find Food Near You</Text>
+        <Text className="text-2xl font-bold text-center mb-4">Find Food Near You</Text>
+
+
 
         {/* Search Bar */}
         <TextInput
@@ -61,7 +63,7 @@ export default function FindFoodScreen({ navigation }) {
         {/* Upload Button */}
         <Pressable
           onPress={() => navigation.navigate('UploadToFindFood')}
-          className="bg-[#0D4A59] py-3 rounded-lg mb-6"
+          className="bg-[#0D4A59]py-3 rounded-lg mb-6"
 
         >
           <Text className="text-white text-center font-bold">Upload Food</Text>

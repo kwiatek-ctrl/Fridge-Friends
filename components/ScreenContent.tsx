@@ -1,15 +1,14 @@
 import { Text, View } from 'react-native';
-
 import { EditScreenInfo } from './LogIn';
 
-
 type ScreenContentProps = {
-  title: string;
+  title?: string;
   path: string;
   children?: React.ReactNode;
+  navigation: any;
 };
 
-export const ScreenContent = ({ title, path, children , navigation}: ScreenContentProps) => {
+export const ScreenContent = ({ title, path, children, navigation }: ScreenContentProps) => {
   return (
     <View className={styles.container}>
       <Text className={styles.title}>{title}</Text>
@@ -18,6 +17,7 @@ export const ScreenContent = ({ title, path, children , navigation}: ScreenConte
     </View>
   );
 };
+
 const styles = {
   container: `items-center flex-1 justify-center`,
   title: `text-xl font-bold mt-20 pt-10`,

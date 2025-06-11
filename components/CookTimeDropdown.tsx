@@ -1,5 +1,5 @@
 import { View, Text, Pressable, FlatList } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function CookTimeDropdown({
@@ -11,8 +11,6 @@ export default function CookTimeDropdown({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const options = ['< 15 Minutes', '<30 Minutes', '< 1 hr', "I've got all day"];
-
-
 
   return (
     <View className="mb-4">
@@ -50,14 +48,14 @@ export default function CookTimeDropdown({
                   <Text
                     className={`${
                       isSelected
-                        ? 'font-bold text-purple-600'
+                        ? 'font-bold text-[#0D4A59]'
                         : 'text-black'
                     }`}
                   >
                     {item}
                   </Text>
                   {isSelected && (
-                    <Ionicons name="checkmark" size={20} color="#9333ea" />
+                    <Ionicons name="checkmark" size={20} color="#0D4A59" />
                   )}
                 </Pressable>
               );

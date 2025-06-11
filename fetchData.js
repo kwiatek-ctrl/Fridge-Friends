@@ -84,7 +84,6 @@ export function addItemToPantry(username, item) {
   camelCaseCategory += lowercase
     .split(', ')
     .reduce((s, c) => s + (c.charAt(0).toUpperCase() + c.slice(1)));
-    console.log(camelCaseCategory)
   return apiClient
     .post(`/users/${username}/pantry`, {
       name: item.name,
@@ -134,12 +133,7 @@ export function deleteItemFromPantry(username, itemID) {
   });
 }
 
-export function getRecipies(input) {
-
-  console.log(input, '>>');
-
-  
-
+export function getRecipes(input) {
   return ai
     .post('/api/generate-recipe', {
       ingredients: input.ingredients,
@@ -149,8 +143,6 @@ export function getRecipies(input) {
       onlyInventory: input.onlyInventory
     })
     .then((response) => {
-      //const parsedRecipies = JSON.parse(response);
-      //return parsedRecipies;
       return response.data
     })
     .catch((err) => {
