@@ -36,8 +36,10 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
   };
 
   return (
-    <View>
-      <ScrollView className="flex-1 px-6 pt-20">
+
+    <View className='flex-1 bg-white'>
+      <BackButton />
+      <ScrollView className="flex-1  pt-20 ">
 
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 
