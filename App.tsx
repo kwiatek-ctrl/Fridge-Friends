@@ -37,7 +37,8 @@ export default function App() {
           <Stack.Screen name="UploadToFindFood" component={UploadToFindFoodScreen} />
           <Stack.Screen name="PasswordReset" component={PasswordResetScreen}/>
         </Stack.Navigator>
-      <StatusBar style="auto" />
+    <StatusBar backgroundColor="white" translucent={false} />
+
       </UserProvider>
     </NavigationContainer>
   );
