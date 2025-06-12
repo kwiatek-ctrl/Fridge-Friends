@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View, Alert, Image, ScrollView } from 'react-native';
-import BackButton from './BackButton';
 
 export const EditScreenInfo = ({ path, navigation }: { path: string, navigation: any }) => {
   const emailLabel = 'Email';
@@ -37,9 +36,11 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
   };
 
   return (
+
     <View className='flex-1 bg-white'>
       <BackButton />
       <ScrollView className="flex-1  pt-20 ">
+
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 
         {/* Unified form container */}

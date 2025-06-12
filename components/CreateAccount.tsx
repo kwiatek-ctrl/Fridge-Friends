@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, Image, ScrollView } from 'react-native';
 import { addUser } from 'fetchData';
-import BackButton from './BackButton';
 import { useNavigation } from '@react-navigation/native';
 
 export default function CreateAccount() {
@@ -77,7 +76,6 @@ export default function CreateAccount() {
 
   return (
     <View className={styles.container}>
-      <BackButton />
       <ScrollView className="flex-1 px-6 pt-20">
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
         <Text className={styles.title}>Create Account</Text>
@@ -142,7 +140,7 @@ const styles = {
   title: 'text-2xl font-bold text-center text-gray-800 mb-6',
   logo: 'object-scale-down h-40 w-40 mx-auto mb-6',
   label: 'text-base font-bold text-gray-800',
-  input: 'border border-gray-300 rounded-md p-2 bg-white w-full',
+  input: 'border border-gray-300 rounded-md p-2 mb-2 bg-white w-full',
   inputGroup: 'mb-4',
   button: 'bg-[#0D4A59] py-3 rounded-md w-full mt-5',
   buttonText: 'text-white text-center font-bold text-base',
