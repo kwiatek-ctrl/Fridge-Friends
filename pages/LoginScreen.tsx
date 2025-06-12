@@ -7,7 +7,7 @@ export default function LoginScreen({navigation}) {
     <View className="flex-1 bg-white mt-5">
       <BackButton />
       <ScreenContent
-        title="Sign in to Fridge Friends"
+        
         path="LoginScreen.tsx"
         navigation={navigation}
       />
