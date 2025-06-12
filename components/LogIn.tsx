@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View, Alert, Image, ScrollView } from 'react-native';
 import BackButton from './BackButton';
+import { SafeAreaView } from 'react-native';
 
 export const EditScreenInfo = ({ path, navigation }: { path: string, navigation: any }) => {
   const emailLabel = 'Email';
@@ -38,14 +39,17 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
 
   return (
 
-    <View className='flex-1 bg-white'>
+    <View className=' flex-1 bg-white '>
+     
       {/* <BackButton /> */}
-      <ScrollView className="flex-1  pt-20 ">
+      <ScrollView className="flex-1  px-6 pt-20 ">
 
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 
+        <Text className="text-xl font-bold text-center mt-4">Sign In</Text>
+
         {/* Unified form container */}
-        <View className="w-80 mx-auto space-y-3 mt-8">
+        {/* <View className="w-80 mx-auto space-y-3 mt-8"> */}
           <Text className={styles.getStartedText}>{emailLabel}</Text>
           <TextInput
             className={styles.inputArea}
@@ -70,7 +74,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
           <Pressable className={styles.buttonLogIn} onPress={handleLogin}>
             <Text className={styles.logIn}>{loginLabel}</Text>
           </Pressable>
-        </View>
+        {/* </View> */}
 
         {/* Forgot password */}
         <View className={styles.helpContainer}>
@@ -90,6 +94,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
         </View>
       </ScrollView>
     </View>
+   
   );
 };
 
@@ -104,5 +109,5 @@ const styles = {
   logIn: 'text-center text-white font-bold text-base',
   footerSignUp: 'underline text-base text-purple-700',
   formFooter: 'text-center p-4 text-gray-600 text-base',
-  logo: 'object-scale-down h-40 w-40 mx-auto mb-20',
+  logo: 'object-scale-down h-40 w-40 mx-auto mb-15',
 };
