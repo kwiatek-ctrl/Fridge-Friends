@@ -39,7 +39,7 @@ export const EditScreenInfo = ({ path, navigation }: { path: string, navigation:
   return (
     <View className='flex-1 bg-white'>
       <BackButton />
-      <ScrollView className="flex-1 px-12 pt-20 ">
+      <ScrollView className="flex-1  pt-20 ">
         <Image className={styles.logo} source={require('../assets/logo_transparent.png')} />
 
         {/* Unified form container */}
