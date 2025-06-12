@@ -5,7 +5,7 @@ import BackButton from "components/BackButton";
 
 export default function CreateAccountScreen({onUserAdded}) {
   return (
-    <View className="flex-1 bg-white mt-5">
+    <View className="flex-1 bg-white">
       <BackButton />
       <CreateAccount onUserAdded={onUserAdded} />
     </View>

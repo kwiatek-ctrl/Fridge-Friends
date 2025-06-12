@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 export default function LoginScreen({navigation}) {
   return (
-    <View className="flex-1 bg-white mt-5">
+    <View className="flex-1 bg-white">
       <BackButton />
       <ScreenContent
         
